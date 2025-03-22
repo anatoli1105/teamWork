@@ -1,5 +1,6 @@
 package com.skypro.teamwork.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class User {
@@ -40,5 +41,27 @@ public class User {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(text, user.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, text);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                '}';
     }
 }

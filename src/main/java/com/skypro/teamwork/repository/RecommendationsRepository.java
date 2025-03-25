@@ -18,68 +18,27 @@ public class RecommendationsRepository {
             this.jdbcTemplate = jdbcTemplate;
         }
 
-        public UUID getRandomTransactionAmount(UUID user){
-            var result = jdbcTemplate.queryForObject(
 
-                    "SELECT t.user_id FROM products p JOIN  transactions t " +
-                            " ON p.id = t.product_id WHERE t.user_id = ?" +
-                            " AND p.`TYPE` ='DEBIT' AND p.`TYPE` !='INVEST' LIMIT 1",
-                    UUID.class,
-                    user);
+    public boolean userOf(UUID user,String type){
+        boolean result = jdbcTemplate.queryForObject(
 
-            return result != null ? result : null;
-        }
-
-
-        public int getSumAmountSaving(UUID id){
-        var result = jdbcTemplate.queryForObject(
-                "SELECT SUM(amount)  FROM products p JOIN  transactions t  " +
-                        "ON p.id = t.product_id WHERE t.user_id = ? " +
-                        "AND p.`TYPE` ='SAVING' AND t.`TYPE` ='DEPOSIT'",
-                int.class,
-                id);
-        return result != null ? result :0;
-    }
-    public int getSumAmountDebit(UUID id){
-        var result = jdbcTemplate.queryForObject(
-                "SELECT SUM(amount)  FROM products p JOIN  transactions t  " +
-                        "ON p.id = t.product_id WHERE t.user_id = ? " +
-                        "AND p.`TYPE` ='DEBIT' AND t.`TYPE` ='DEPOSIT'",
-                int.class,
-                id);
-        return result != null ? result :0;
-    }
-    public UUID getDebit(UUID user){
-        var result = jdbcTemplate.queryForObject(
-
-                "SELECT t.user_id FROM products p JOIN  transactions t " +
+                "SELECT true FROM products p JOIN  transactions t " +
                         " ON p.id = t.product_id WHERE t.user_id = ?" +
-                        " AND p.`TYPE` ='DEBIT' LIMIT 1",
-                UUID.class,
-                user);
+                        " AND p.`TYPE` = ? LIMIT 1",
+                boolean.class,
+                user,type);
 
-        return result != null ? result : null;
+        return result != false ? result : null;
     }
-    public int getSumAmountWithdraw(UUID id) {
+    public int sum(UUID id,String type,String string) {
         var result = jdbcTemplate.queryForObject(
                 "SELECT SUM(amount)  FROM products p JOIN  transactions t  " +
                         "ON p.id = t.product_id WHERE t.user_id = ? " +
-                        "AND p.`TYPE` ='DEBIT' AND t.`TYPE` ='WITHDRAW'",
+                        "AND p.`TYPE` = ? AND t.`TYPE` = ?",
                 int.class,
-                id);
+                id,type,string);
         return result != null ? result : 0;
 
-    }
-    public UUID getNotCredit(UUID user){
-        var result = jdbcTemplate.queryForObject(
-
-                "SELECT t.user_id FROM products p JOIN  transactions t " +
-                        " ON p.id = t.product_id WHERE t.user_id = ?" +
-                        " AND p.`TYPE` !='CREDIT' LIMIT 1",
-                UUID.class,
-                user);
-
-        return result != null ? result : null;
     }
 
 

@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RecommendationRuleSet  {
-    public  User getRecommendations(UUID id){return null;}
+public interface RecommendationRuleSet   {
+    public  User getRecommendations(UUID id );
 
 
 }
+
+

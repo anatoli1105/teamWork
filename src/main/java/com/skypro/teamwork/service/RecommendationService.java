@@ -12,10 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 
@@ -23,13 +20,8 @@ public class RecommendationService {
     @Autowired
     private RecommendationsDataSourceConfiguration dataSourceConfiguration;
     @Autowired
-     List<RecommendationRuleSet> ruleSets;
-    @Autowired
-    RecommendationRuleSetInvest invest;
-    @Autowired
-    RecommendationRulSetCredit credit;
-    @Autowired
-    RecommendationRulSetSaving saving;
+    List<RecommendationRuleSet> ruleSets;
+
 
 
     public final RecommendationsRepository repository;
@@ -43,25 +35,40 @@ public class RecommendationService {
     }
     public String getRecommendation(UUID id) {
         User user=null;
+        String typeProductDebit="DEBIT";
+        String typeProductInvest="INVEST";
+        String typeProductCredit="CREDIT";
+        String typeProductSaving="SAVING";
+        String typeTransactionDeposit="DEPOSIT";
+        String typeTransactionWithdraw="WITHDRAW";
 
-            if (repository.getRandomTransactionAmount(id)!=null
-            &&repository.getSumAmountSaving(id)>1000) {
-                 user=invest.getRecommendations(id);
+
+
+            if (repository.userOf(id, typeProductDebit) ==true &&
+                    //repository.userOf(id,typeProductInvest)==false&&
+                    repository.sum(id, typeProductSaving, typeTransactionDeposit) > 1000) {
+                user = (User) ruleSets.get(0).getRecommendations(id);
 
             }
-             if
-            (repository.getDebit(id)!=null
-                    &&repository.getSumAmountDebit(id)>=50000||repository.getSumAmountSaving(id)>=50000
-            &&repository.getSumAmountDebit(id)>=repository.getSumAmountWithdraw(id)) {
+          /*   if
+            (
+                    repository.userOf(id,typeProductDebit)!=null&&
+             repository.sum(id,typeProductDebit,typeTransactionDeposit)>=50000||
+             repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&
+             repository.sum(id,typeProductDebit,typeTransactionDeposit)>
+             repository.sum(id,typeProductDebit,typeTransactionWithdraw)) {
                 user=saving.getRecommendations(id);
 
             }
-            if (repository.getNotCredit(id)!=null
-                    &&repository.getSumAmountDebit(id)>=repository.getSumAmountWithdraw(id)
-                    &&repository.getSumAmountWithdraw(id)>100000) {
+            if (repository.userOf(id,typeProductCredit)==null&&
+                    repository.sum(id,typeProductDebit,typeTransactionDeposit)>
+                            repository.sum(id,typeProductDebit,typeTransactionWithdraw)&&
+                    repository.sum(id,typeProductDebit,typeTransactionWithdraw)>100000
+                    ) {
                 user=credit.getRecommendations(id);
 
-            }
+            }*/
+
 
 
 
@@ -73,3 +80,4 @@ public class RecommendationService {
 
 
 }
+

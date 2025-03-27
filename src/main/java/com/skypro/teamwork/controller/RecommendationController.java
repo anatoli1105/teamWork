@@ -17,19 +17,16 @@ public class RecommendationController {
     private final RecommendationService service;
 
 
-
     public RecommendationController(RecommendationService service) {
         this.service = service;
 
     }
 
     @GetMapping(path = "/get")
-public String get(UUID id){
+    public String get(UUID id) {
         return service.getRecommendation(id);
 
     }
-
-
 
 
 }

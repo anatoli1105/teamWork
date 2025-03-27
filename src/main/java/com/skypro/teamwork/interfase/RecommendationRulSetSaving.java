@@ -1,16 +1,35 @@
 package com.skypro.teamwork.interfase;
 
 import com.skypro.teamwork.model.User;
+import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component(value = "saving")
 public class RecommendationRulSetSaving implements RecommendationRuleSet{
-   @Override
-    public User getRecommendations(UUID id){
-        if(id!=null){
-            return new User(id,"Top saving","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
+    private final RecommendationsRepository repository;
+
+    public RecommendationRulSetSaving(RecommendationsRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public Optional<User> getRecommendations(UUID id){
+       String typeProductDebit = "DEBIT";
+       String typeProductInvest = "INVEST";
+       String typeProductCredit = "CREDIT";
+       String typeProductSaving = "SAVING";
+       String typeTransactionDeposit = "DEPOSIT";
+       String typeTransactionWithdraw = "WITHDRAW";
+       Optional<User>recomendations =Optional.empty();
+        if(       repository.userOf(id,typeProductDebit)==true&&
+                repository.sum(id,typeProductDebit,typeTransactionDeposit)>=50000||
+               repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&
+                       repository.sum(id,typeProductDebit,typeTransactionDeposit)>
+                                repository.sum(id,typeProductDebit,typeTransactionWithdraw)){
+            recomendations=Optional.of(new User(id,"Top saving","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
                     "\n" +
                     "Преимущества «Копилки»:\n" +
                     "\n" +
@@ -20,9 +39,9 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet{
                     "\n" +
                     "Безопасность и надежность. Ваши средства находятся под защитой банка, а доступ к ним возможен только через мобильное приложение или интернет-банкинг.\n" +
                     "\n" +
-                    "Начните использовать «Копилку» уже сегодня и станьте ближе к своим финансовым целям!");
-        }else {
-            return null;
+                    "Начните использовать «Копилку» уже сегодня и станьте ближе к своим финансовым целям!"));
         }
+            return recomendations ;
+
     }
 }

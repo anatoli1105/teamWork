@@ -5,12 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-
 @OpenAPIDefinition
 
 public class TeamworkApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(TeamworkApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TeamworkApplication.class, args);
+    }
 
 }

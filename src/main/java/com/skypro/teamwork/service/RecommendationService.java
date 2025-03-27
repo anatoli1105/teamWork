@@ -17,66 +17,34 @@ import java.util.*;
 @Service
 
 public class RecommendationService {
-    @Autowired
-    private RecommendationsDataSourceConfiguration dataSourceConfiguration;
-    @Autowired
-    List<RecommendationRuleSet> ruleSets;
 
+
+    private final List<RecommendationRuleSet> ruleSets;
 
 
     public final RecommendationsRepository repository;
 
 
-
-    public RecommendationService(RecommendationsRepository repository) {
+    public RecommendationService(List<RecommendationRuleSet> ruleSets, RecommendationsRepository repository) {
+        this.ruleSets = ruleSets;
         this.repository = repository;
 
 
     }
+
     public String getRecommendation(UUID id) {
-        User user=null;
-        String typeProductDebit="DEBIT";
-        String typeProductInvest="INVEST";
-        String typeProductCredit="CREDIT";
-        String typeProductSaving="SAVING";
-        String typeTransactionDeposit="DEPOSIT";
-        String typeTransactionWithdraw="WITHDRAW";
+        String user = null;
 
 
+        //for (RecommendationRuleSet ruleSet : ruleSets) {
+        //if (ruleSet.getRecommendations(id) != null)
+        //user = ruleSet.getRecommendations(id).toString();
 
-            if (repository.userOf(id, typeProductDebit) ==true &&
-                    //repository.userOf(id,typeProductInvest)==false&&
-                    repository.sum(id, typeProductSaving, typeTransactionDeposit) > 1000) {
-                user = (User) ruleSets.get(0).getRecommendations(id);
-
-            }
-          /*   if
-            (
-                    repository.userOf(id,typeProductDebit)!=null&&
-             repository.sum(id,typeProductDebit,typeTransactionDeposit)>=50000||
-             repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&
-             repository.sum(id,typeProductDebit,typeTransactionDeposit)>
-             repository.sum(id,typeProductDebit,typeTransactionWithdraw)) {
-                user=saving.getRecommendations(id);
-
-            }
-            if (repository.userOf(id,typeProductCredit)==null&&
-                    repository.sum(id,typeProductDebit,typeTransactionDeposit)>
-                            repository.sum(id,typeProductDebit,typeTransactionWithdraw)&&
-                    repository.sum(id,typeProductDebit,typeTransactionWithdraw)>100000
-                    ) {
-                user=credit.getRecommendations(id);
-
-            }*/
-
-
-
-
-
-        return "user id:"+id+"\nRecommendation:"+user;
-
+        //  }
+        return ruleSets.stream().map(rule -> rule.getRecommendations(id)).filter(Optional::isPresent).map(Optional::get).toList().toString();
     }
 
+    // return "user id:" + id + "\nRecommendation:" + user;
 
 
 }

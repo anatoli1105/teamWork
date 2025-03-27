@@ -12,25 +12,25 @@ import java.util.UUID;
 
 public class RecommendationsRepository {
 
-        private final JdbcTemplate jdbcTemplate;
+        private final JdbcTemplate jdbcTemplate ;
 
         public RecommendationsRepository(@Qualifier("recommendationsJdbcTemplate") JdbcTemplate jdbcTemplate) {
             this.jdbcTemplate = jdbcTemplate;
         }
 
 
-    public boolean userOf(UUID user,String type){
-        boolean result = jdbcTemplate.queryForObject(
+    public  boolean userOf(UUID user, String type){
+        var result = jdbcTemplate.queryForObject(
 
-                "SELECT true FROM products p JOIN  transactions t " +
+                "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
                         " ON p.id = t.product_id WHERE t.user_id = ?" +
-                        " AND p.`TYPE` = ? LIMIT 1",
+                        " AND p.`TYPE` = ? LIMIT 1)",
                 boolean.class,
                 user,type);
 
-        return result != false ? result : null;
+        return result != null && result;
     }
-    public int sum(UUID id,String type,String string) {
+    public  int sum(UUID id, String type, String string) {
         var result = jdbcTemplate.queryForObject(
                 "SELECT SUM(amount)  FROM products p JOIN  transactions t  " +
                         "ON p.id = t.product_id WHERE t.user_id = ? " +

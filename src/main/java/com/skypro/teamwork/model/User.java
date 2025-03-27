@@ -57,6 +57,7 @@ public class User {
         return Objects.hash(id, name, text);
     }
 
+
     @Override
     public String toString() {
         return "User{" +

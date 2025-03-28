@@ -29,6 +29,7 @@ public class RecommendationsRepository {
                 user,type);
 
         return result != null && result;
+
     }
     public  int sum(UUID id, String type, String string) {
         var result = jdbcTemplate.queryForObject(

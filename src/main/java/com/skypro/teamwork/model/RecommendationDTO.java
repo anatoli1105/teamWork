@@ -3,19 +3,19 @@ package com.skypro.teamwork.model;
 import java.util.Objects;
 import java.util.UUID;
 
-public class User {
+public class RecommendationDTO {
     private UUID id;
     private String name;
     private String text;
 
 
-    public User(UUID id, String name, String text) {
+    public RecommendationDTO(UUID id, String name, String text) {
         this.id = id;
         this.name = name;
         this.text = text;
     }
 
-    public User() {
+    public RecommendationDTO() {
     }
 
     public UUID getId() {
@@ -47,7 +47,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        RecommendationDTO user = (RecommendationDTO) o;
         return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(text, user.text);
     }
 

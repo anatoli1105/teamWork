@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition
 
 public class TeamworkApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(TeamworkApplication.class, args);
     }

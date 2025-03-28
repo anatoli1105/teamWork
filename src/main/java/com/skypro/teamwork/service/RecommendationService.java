@@ -1,15 +1,8 @@
 package com.skypro.teamwork.service;
 
-import com.skypro.teamwork.configuration.RecommendationsDataSourceConfiguration;
-import com.skypro.teamwork.interfase.RecommendationRulSetCredit;
-import com.skypro.teamwork.interfase.RecommendationRulSetSaving;
 import com.skypro.teamwork.interfase.RecommendationRuleSet;
-import com.skypro.teamwork.interfase.RecommendationRuleSetInvest;
-import com.skypro.teamwork.model.User;
+import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.repository.RecommendationsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,19 +25,15 @@ public class RecommendationService {
 
     }
 
-    public String getRecommendation(UUID id) {
-        String user = null;
+    public List<RecommendationDTO> getRecommendation(UUID id) {
 
 
-        //for (RecommendationRuleSet ruleSet : ruleSets) {
-        //if (ruleSet.getRecommendations(id) != null)
-        //user = ruleSet.getRecommendations(id).toString();
 
-        //  }
-        return ruleSets.stream().map(rule -> rule.getRecommendations(id)).filter(Optional::isPresent).map(Optional::get).toList().toString();
+
+        return ruleSets.stream().map(rule -> rule.getRecommendations(id)).filter(Optional::isPresent).map(Optional::get).toList();
     }
 
-    // return "user id:" + id + "\nRecommendation:" + user;
+
 
 
 }

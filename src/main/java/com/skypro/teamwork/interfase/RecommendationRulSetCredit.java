@@ -1,6 +1,6 @@
 package com.skypro.teamwork.interfase;
 
-import com.skypro.teamwork.model.User;
+import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.stereotype.Component;
 
@@ -10,14 +10,16 @@ import java.util.UUID;
 @Component(value = "credit")
 public class RecommendationRulSetCredit implements RecommendationRuleSet {
     private final RecommendationsRepository repository;
+    private final RecommendationDTO recommendationDTO;
 
-    public RecommendationRulSetCredit(RecommendationsRepository repository) {
+    public RecommendationRulSetCredit(RecommendationsRepository repository, RecommendationDTO recommendationDTO) {
         this.repository = repository;
+        this.recommendationDTO = recommendationDTO;
     }
 
     @Override
 
-        public Optional<User> getRecommendations(UUID id) {
+        public Optional<RecommendationDTO> getRecommendations(UUID id) {
 
             String typeProductDebit = "DEBIT";
             String typeProductInvest = "INVEST";
@@ -25,7 +27,7 @@ public class RecommendationRulSetCredit implements RecommendationRuleSet {
             String typeProductSaving = "SAVING";
             String typeTransactionDeposit = "DEPOSIT";
             String typeTransactionWithdraw = "WITHDRAW";
-            Optional<User>recomendations =Optional.empty();
+
 
 
             if (repository.userOf(id,typeProductCredit)==true&&
@@ -33,7 +35,7 @@ public class RecommendationRulSetCredit implements RecommendationRuleSet {
                        repository.sum(id,typeProductDebit,typeTransactionWithdraw)&&
                 repository.sum(id,typeProductDebit,typeTransactionWithdraw)>100000) {
 
-                recomendations = Optional.of(new User(id, "credit", "Откройте мир выгодных кредитов с нами!\n" +
+               RecommendationDTO recomendationDTO = new RecommendationDTO(id, "credit", "Откройте мир выгодных кредитов с нами!\n" +
                         "Ищете способ быстро и без лишних хлопот получить нужную сумму? Тогда наш выгодный кредит — именно то, " +
                         "что вам нужно! Мы предлагаем низкие процентные ставки, гибкие условия и индивидуальный подход к каждому клиенту." +
                         "Почему выбирают нас:\n" +
@@ -41,10 +43,10 @@ public class RecommendationRulSetCredit implements RecommendationRuleSet {
                         "Удобное оформление. Подать заявку на кредит можно онлайн на нашем сайте или в мобильном приложении.\n" +
                         "Широкий выбор кредитных продуктов. Мы предлагаем кредиты на различные цели: покупку недвижимости, " +
                         "автомобиля, образование, лечение и многое другое.\n" +
-                        "Не упустите возможность воспользоваться выгодными условиями кредитования от нашей компании!"));
+                        "Не упустите возможность воспользоваться выгодными условиями кредитования от нашей компании!");
             }
 
-                return recomendations;
+                return Optional.of(recommendationDTO);
 
             }
 }

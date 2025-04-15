@@ -1,7 +1,14 @@
 package com.skypro.teamwork.model;
 
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 import java.util.UUID;
+@Service
 
 public class RecommendationDTO {
     private UUID id;
@@ -15,7 +22,7 @@ public class RecommendationDTO {
         this.text = text;
     }
 
-    public RecommendationDTO() {
+   public RecommendationDTO() {
     }
 
     public UUID getId() {
@@ -32,14 +39,14 @@ public class RecommendationDTO {
     }
 
     public void setName(String name) {
-        this.name = name;
+       this.name = name;
     }
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+   /* public void setText(String text) {
         this.text = text;
     }
 
@@ -65,5 +72,5 @@ public class RecommendationDTO {
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
                 '}';
-    }
+    }*/
 }

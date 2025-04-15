@@ -2,6 +2,7 @@ package com.skypro.teamwork.interfase;
 
 import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.repository.RecommendationsRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class RecommendationRulSetCredit implements RecommendationRuleSet {
     }
 
     @Override
+
 
         public Optional<RecommendationDTO> getRecommendations(UUID id) {
 

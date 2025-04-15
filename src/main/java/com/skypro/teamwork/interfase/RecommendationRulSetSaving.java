@@ -2,6 +2,7 @@ package com.skypro.teamwork.interfase;
 
 import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.repository.RecommendationsRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet{
     }
 
     @Override
+
     public Optional<RecommendationDTO> getRecommendations(UUID id){
        String typeProductDebit = "DEBIT";
        String typeProductInvest = "INVEST";
@@ -31,7 +33,7 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet{
                repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&
                        repository.sum(id,typeProductDebit,typeTransactionDeposit)>
                                 repository.sum(id,typeProductDebit,typeTransactionWithdraw)){
-           RecommendationDTO recomendationDTO=new RecommendationDTO(id,"Top saving","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
+         RecommendationDTO recommendationDTO1=new RecommendationDTO(id,"Top saving","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
                     "\n" +
                     "Преимущества «Копилки»:\n" +
                     "\n" +

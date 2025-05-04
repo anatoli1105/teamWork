@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.List;
+import java.util.UUID;
+
 @Entity
 
 public class Requests {
@@ -13,10 +16,10 @@ public class Requests {
     private Long id;
 
     private String query;
-    private String arguments;
+    private List<String> arguments;
     private Boolean negate;
 
-    public Requests(Long id, String arguments, Boolean negate, String query) {
+    public Requests(Long id,String query, List<String> arguments, Boolean negate) {
         this.id = id;
         this.arguments = arguments;
         this.query = query;
@@ -26,11 +29,11 @@ public class Requests {
     public Requests() {
     }
 
-    public String getArguments() {
+    public List<String> getArguments() {
         return arguments;
     }
 
-    public void setArguments(String arguments) {
+    public void setArguments(List<String> arguments) {
         this.arguments = arguments;
     }
 

@@ -10,10 +10,7 @@ import java.util.UUID;
 public interface RecommendationRuleSet {
 
 
-
-
-
-    public Optional<RecommendationDTO> getRecommendations(UUID id );
+    public Optional<RecommendationDTO> getRecommendations(UUID id);
 
 
 }

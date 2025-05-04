@@ -8,4 +8,5 @@ arguments text,
 negate BOOL
 
 )
+
 select * from Requests

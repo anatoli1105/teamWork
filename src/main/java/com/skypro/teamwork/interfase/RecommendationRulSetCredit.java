@@ -1,6 +1,7 @@
 package com.skypro.teamwork.interfase;
 
 import com.skypro.teamwork.model.RecommendationDTO;
+import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class RecommendationRulSetCredit implements RecommendationRuleSet {
 
 
 
-            if (repository.userOf(id,typeProductCredit)==true&&
+            if (repository.userOf(id, Type.CREDIT)==true&&
                 repository.sum(id,typeProductDebit,typeTransactionDeposit)>
                        repository.sum(id,typeProductDebit,typeTransactionWithdraw)&&
                 repository.sum(id,typeProductDebit,typeTransactionWithdraw)>100000) {

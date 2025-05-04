@@ -1,6 +1,7 @@
 package com.skypro.teamwork.interfase;
 
 import com.skypro.teamwork.model.RecommendationDTO;
+import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,8 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet{
        String typeTransactionDeposit = "DEPOSIT";
        String typeTransactionWithdraw = "WITHDRAW";
 
-        if(       repository.userOf(id,typeProductDebit)==true&&
+        if(       repository.userOf(id, Type.DEBIT)==true&&
+
                 repository.sum(id,typeProductDebit,typeTransactionDeposit)>=50000||
                repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&
                        repository.sum(id,typeProductDebit,typeTransactionDeposit)>

@@ -1,5 +1,6 @@
 package com.skypro.teamwork.repository;
 
+import com.skypro.teamwork.model.Type;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class RecommendationsRepository {
         }
 
 
-    public  boolean userOf(UUID user, String type){
+    public  boolean userOf(UUID user, Type type){
         var result = jdbcTemplate.queryForObject(
 
                 "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
@@ -41,6 +42,7 @@ public class RecommendationsRepository {
         return result != null ? result : 0;
 
     }
+
 
 
 

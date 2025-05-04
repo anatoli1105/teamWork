@@ -1,6 +1,7 @@
 package com.skypro.teamwork.interfase;
 
 import com.skypro.teamwork.model.RecommendationDTO;
+import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,13 +18,15 @@ import java.util.UUID;
 public class RecommendationRuleSetInvest implements RecommendationRuleSet  {
     private final RecommendationsRepository repository;
     private final RecommendationDTO recommendationDTO;
+    private final Type type;
 
 
 
 
-    public RecommendationRuleSetInvest(RecommendationsRepository repository, RecommendationDTO recommendationDTO) {
+    public RecommendationRuleSetInvest(RecommendationsRepository repository, RecommendationDTO recommendationDTO,Type type) {
         this.repository = repository;
         this.recommendationDTO = recommendationDTO;
+        this.type=type;
     }
 
     @Override
@@ -41,9 +44,9 @@ public Optional<RecommendationDTO> getRecommendations(UUID id) {
 
 
 
-    if (repository.userOf(id, typeProductDebit) == true &&
-            repository.userOf(id, typeProductInvest) != true &&
-            repository.sum(id, typeProductSaving, typeTransactionDeposit) > 1000) {
+    if (repository.userOf(id, Type.DEBIT) == true &&
+            repository.userOf(id, Type.INVEST) != true &&
+            repository.sum(id, typeProductInvest, typeTransactionDeposit) > 1000) {
 
        RecommendationDTO recommendation = new RecommendationDTO(id, "invest", "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
                 " от нашего банка! Воспользуйтесь налоговыми льготами и начните инвестировать с умом." +

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.UUID;
-@Component
+
 
 
 public class RecommendationDTO {
@@ -47,31 +47,5 @@ public class RecommendationDTO {
         return text;
     }
 
-   /* public void setText(String text) {
-        this.text = text;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RecommendationDTO user = (RecommendationDTO) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(text, user.text);
-    }
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, text);
-    }
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", text='" + text + '\'' +
-                '}';
-    }*/
 }

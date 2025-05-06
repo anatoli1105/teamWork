@@ -3,14 +3,16 @@ package com.skypro.teamwork.interfase;
 import com.skypro.teamwork.model.Requests;
 import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 
-public class RequestsSet {
-    private final RecommendationsRepository repository;
+public interface  RequestsSet {
+    public List<Requests> getRequests(UUID id,List<String>listArguments);
+  /* private final RecommendationsRepository repository;
     private final MethodOperator method;
 
     private final Requests requests;
@@ -22,58 +24,52 @@ public class RequestsSet {
         this.method = method;
     }
 
-    List<Requests> requestsList = new ArrayList<>();
 
-    public Type returnType(String str, Type type) {
 
-        if (str.equals(type)) {
-            Type newType = type;
-        }
-        return type;
-    }
 
-    public List<Requests> getRequestsUserOf(UUID id, String typeProduct, Type type, List<Requests> requestsList) {
+    public List<Requests> getRequestsUserOf(UUID id, List<String> listArguments) {
 
-        if (repository.userOf(id, returnType(typeProduct, type)) == true) {
-            requestsList = List.of(new Requests(1L, "user_of", List.of(typeProduct), true));
-        }
+        List<Requests> requestsList = List.of(new Requests(1L, "user_of",
+                listArguments, repository.userOf(id, Type.valueOf(listArguments.get(0)))));
+
         return requestsList;
 
     }
 
-    public List<Requests> getRequestsActiveUserOf(UUID id, String typeProduct, Type type, List<Requests> requestsList) {
-        if (repository.userOf(id, returnType(typeProduct, type)) == true) {
-            requestsList = List.of(new Requests(2L, "Active_User_Of", List.of(typeProduct), true));
-        }
+    public List<Requests> getRequestsActiveUserOf(UUID id, List<String> list) {
+
+
+        List<Requests> requestsList = List.of(new Requests(2L, "Active_User_Of",
+                List.of(list.get(0)), repository.userOf(id, Type.valueOf(list.get(0)))));
         return requestsList;
 
     }
 
 
-    public List<Requests> getRequestsSum(UUID id, String typeProduct, String typeTransactions,
-                                         String typeCompare, int Number, List<Requests> requestsList) {
-        String changeNumber = String.valueOf(Number);
-        if (method.operator(repository.sum(id, typeProduct, typeTransactions), typeCompare, Number) == true) {
-            requestsList = List.of(new Requests(3L,
-                    "Transaction_Sum_Compare", List.of(typeProduct, typeTransactions, typeCompare, changeNumber), true));
-        }
+    public List<Requests> getRequestsSum(UUID id, List<String> listArgument) {
+
+        int newNum = Integer.parseInt(listArgument.get(3));
+
+        List<Requests> requestsList = List.of(new Requests(3L,
+                "Transaction_Sum_Compare", listArgument,
+                method.operator(repository.sum(id, listArgument.get(0), listArgument.get(1)), listArgument.get(2), newNum)));
         return requestsList;
 
     }
 
-    public List<Requests> getRequestsTransactionsSumCompareDepositWithdraw(UUID id,
-                                                                           String typeProduct,
-                                                                           String typeCompare, List<Requests> requestsList) {
+    public List<Requests> getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument) {
 
-        if (method.operator((repository.sum(id, typeProduct, "DEPOSIT")), typeCompare, (repository.sum(id, typeProduct
-                , " WITHDRAW"))
-        ) == true) {
-            requestsList = List.of(new Requests(4L, "TransactionsSumCompareDepositWithdraw", List.of(typeProduct,
-                    typeCompare), true));
-        }
+
+        List<Requests> requestsList = List.of(new Requests(4L, "TransactionsSumCompareDepositWithdraw", listArgument,
+                (method.operator((repository.sum(id, listArgument.get(0), "DEPOSIT")),
+                        listArgument.get(1), (repository.sum(id, listArgument.get(1)
+                                , " WITHDRAW"))
+                ))));
         return requestsList;
 
-    }
-
-
+    }*/
 }
+
+
+
+

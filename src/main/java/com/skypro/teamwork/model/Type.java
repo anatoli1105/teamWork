@@ -6,5 +6,7 @@ public enum Type {
     CREDIT,
     SAVING,
     DEPOSIT,
-    WITHDRAW
+    WITHDRAW, String;
+
+
 }

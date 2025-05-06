@@ -3,10 +3,13 @@ package com.skypro.teamwork.service;
 import com.skypro.teamwork.interfase.RecommendationRuleSet;
 import com.skypro.teamwork.interfase.RequestsSet;
 import com.skypro.teamwork.model.RecommendationDTO;
+import com.skypro.teamwork.model.Requests;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import com.skypro.teamwork.repository.RequestRepository;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestScope;
 
 import java.util.*;
 
@@ -19,7 +22,7 @@ public class RecommendationService {
 
     private final RequestRepository requestRepository;
 
-private final RequestsSet requestsSet;
+    private final RequestsSet requestsSet;
     public final RecommendationsRepository repository;
 
 
@@ -27,8 +30,8 @@ private final RequestsSet requestsSet;
                                  RequestRepository requestRepository,RequestsSet requestsSet) {
         this.ruleSets = ruleSets;
         this.repository = repository;
-        this.requestRepository=requestRepository;
-        this.requestsSet=requestsSet;
+        this.requestRepository = requestRepository;
+        this.requestsSet = requestsSet;
 
 
     }
@@ -36,19 +39,20 @@ private final RequestsSet requestsSet;
     public List<RecommendationDTO> getRecommendation(UUID id) {
 
 
-
-
-        return ruleSets.stream().map(rule -> rule.getRecommendations(id)).filter(Optional::isPresent).map(Optional::get).toList();
+        return ruleSets.stream().
+                map(rule -> rule.
+                        getRecommendations(id)).
+                filter(Optional::isPresent).
+                map(Optional::get).toList();
     }
-    public List<RequestRepository> addRule(UUID id,RequestsSet requestsSet){
-        return requestRepository.save(requestsSet.getRequestsUserOf(id),);
 
-   // }
-   // public deleteRule()
-    //public getAllRule()
+    public List<Requests> addRule(UUID id, List<String> listArgument) {
 
-
+        List<Requests> save = requestRepository.save(requestsSet.getRequests(id, listArgument));
+        return save;
+         }
 
 
-}
+
+    }
 

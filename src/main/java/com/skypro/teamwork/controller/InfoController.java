@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/info")
 
 public class InfoController {
-    @Value("${server.port:port}")
-    private String port="fffffffffffffff";
+
+     String port="";
 
     @GetMapping(path = "/port")
     public String port() {

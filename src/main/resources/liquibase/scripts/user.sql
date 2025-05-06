@@ -1,12 +1,12 @@
 -- liquibase formatted sql
 
 -- changelog user:1
+drop table Requests
+
 create table Requests(
-id serial,
-query text,
+id bigint,
+query text[],
 arguments text,
-negate BOOL
-
+negate bool
 )
-
 select * from Requests

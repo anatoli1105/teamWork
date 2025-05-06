@@ -2,7 +2,9 @@ package com.skypro.teamwork.service;
 
 import com.skypro.teamwork.interfase.RecommendationRuleSet;
 import com.skypro.teamwork.interfase.RequestsSet;
+import com.skypro.teamwork.interfase.RuleSet;
 import com.skypro.teamwork.model.RecommendationDTO;
+import com.skypro.teamwork.model.Recommendations;
 import com.skypro.teamwork.model.Requests;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import com.skypro.teamwork.repository.RequestRepository;
@@ -16,22 +18,25 @@ import java.util.*;
 @Service
 
 public class RecommendationService {
-
-
-    private final List<RecommendationRuleSet> ruleSets;
+@Autowired
+List<RuleSet> ruleSet;
 
     private final RequestRepository requestRepository;
 
-    private final RequestsSet requestsSet;
+   private final List<RecommendationRuleSet> recommendationsDto;
+private final Recommendations recommendations;
+
     public final RecommendationsRepository repository;
 
 
-    public RecommendationService(List<RecommendationRuleSet> ruleSets, RecommendationsRepository repository,
-                                 RequestRepository requestRepository,RequestsSet requestsSet) {
-        this.ruleSets = ruleSets;
+    public RecommendationService( RecommendationsRepository repository,List<RecommendationRuleSet> recommendationsDto,
+                                 RequestRepository requestRepository,Recommendations recommendations) {
+
         this.repository = repository;
         this.requestRepository = requestRepository;
-        this.requestsSet = requestsSet;
+        this.recommendationsDto=recommendationsDto;
+        this.recommendations=recommendations;
+
 
 
     }
@@ -39,18 +44,20 @@ public class RecommendationService {
     public List<RecommendationDTO> getRecommendation(UUID id) {
 
 
-        return ruleSets.stream().
+        return recommendationsDto.stream().
                 map(rule -> rule.
-                        getRecommendations(id)).
+                        (id)).
                 filter(Optional::isPresent).
                 map(Optional::get).toList();
     }
 
-    public List<Requests> addRule(UUID id, List<String> listArgument) {
+    public List<Recommendations> addRule(UUID id) {
 
-        List<Requests> save = requestRepository.save(requestsSet.getRequests(id, listArgument));
-        return save;
-         }
+        for (RuleSet set : ruleSet) {
+            if(set.recommendationsSet(id).g)
+        }
+
+        }
 
 
 

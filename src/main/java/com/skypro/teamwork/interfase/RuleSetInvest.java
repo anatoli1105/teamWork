@@ -7,17 +7,18 @@ import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public class RecomendationsSetInvest implements RuleSet{
+public class RuleSetInvest implements RuleSet{
     private final RecommendationsRepository repository;
-    private final RecommendationDTO recommendationDTO;
+    private final Recommendations recommendations;
     private final RequestsSet requestsSet;
     private final Type type;
 
-    public RecomendationsSetInvest(RecommendationDTO recommendationDTO,
-                                   RecommendationsRepository repository, Type type, RequestsSet requestsSet) {
-        this.recommendationDTO = recommendationDTO;
+    public RuleSetInvest(Recommendations recommendations,
+                         RecommendationsRepository repository, Type type, RequestsSet requestsSet) {
+        this.recommendations = recommendations;
         this.repository = repository;
         this.type = type;
         this.requestsSet = requestsSet;
@@ -27,7 +28,7 @@ public class RecomendationsSetInvest implements RuleSet{
 
 
     @Override
-    public Recommendations recommendationsSet(UUID id) {
+    public Optional<Recommendations> recommendationsSet(UUID id) {
 
 
             Recommendations recommendation = new Recommendations(id, "invest", "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
@@ -37,8 +38,9 @@ public class RecomendationsSetInvest implements RuleSet{
                     "Откройте ИИС сегодня и станьте ближе к финансовой независимости!",
                     List.of((Requests) requestsSet.getRequestsUserOf(id,List.of(String.valueOf(Type.DEBIT))),
                             (Requests) requestsSet.getRequestsActiveUserOf(id,List.of(String.valueOf(Type.INVEST))),
-                            (Requests) requestsSet.getRequestsSum(id,List.of(String.valueOf(Type.SAVING),">","1000"))));
+                            (Requests) requestsSet.getRequestsSum(id,List.of(String.valueOf(Type.SAVING),
+                                    String.valueOf(Type.DEPOSIT),">","1000"))));
 
-        return recommendation;
+        return Optional.of(recommendations);
     }
 }

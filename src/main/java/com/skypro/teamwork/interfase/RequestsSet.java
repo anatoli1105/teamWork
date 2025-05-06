@@ -24,7 +24,7 @@ public class RequestsSet {
     }
 
 
-    public List<Requests> getRequestsUserOf (UUID id, List < String > listArguments){
+    public List<Requests> getRequestsUserOf(UUID id, List<String> listArguments) {
 
         List<Requests> requestsList = List.of(new Requests(1L, "user_of",
                 listArguments, repository.userOf(id, Type.valueOf(listArguments.get(0)))));
@@ -33,7 +33,7 @@ public class RequestsSet {
 
     }
 
-    public List<Requests> getRequestsActiveUserOf (UUID id, List < String > list){
+    public List<Requests> getRequestsActiveUserOf(UUID id, List<String> list) {
 
 
         List<Requests> requestsList = List.of(new Requests(2L, "Active_User_Of",
@@ -43,7 +43,7 @@ public class RequestsSet {
     }
 
 
-    public List<Requests> getRequestsSum (UUID id, List < String > listArgument){
+    public List<Requests> getRequestsSum(UUID id, List<String> listArgument) {
 
         int newNum = Integer.parseInt(listArgument.get(3));
 
@@ -54,17 +54,17 @@ public class RequestsSet {
 
     }
 
-    public List<Requests> getRequestsTransactionsSumCompareDepositWithdraw (UUID id, List < String > listArgument){
+    public List<Requests> getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument) {
 
 
         List<Requests> requestsList = List.of(new Requests(4L, "TransactionsSumCompareDepositWithdraw", listArgument,
                 (method.operator((repository.sum(id, listArgument.get(0), "DEPOSIT")),
                         listArgument.get(1), (repository.sum(id, listArgument.get(1)
-                                , " WITHDRAW"))
-                ))));
+                                , " WITHDRAW"))))));
         return requestsList;
 
     }
+
 
 }
 

@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface  RequestsSet {
-    public List<Requests> getRequests(UUID id,List<String>listArguments);
-  /* private final RecommendationsRepository repository;
-    private final MethodOperator method;
+public class RequestsSet {
 
+    private final RecommendationsRepository repository;
+    private final MethodOperator method;
     private final Requests requests;
 
 
@@ -25,9 +24,7 @@ public interface  RequestsSet {
     }
 
 
-
-
-    public List<Requests> getRequestsUserOf(UUID id, List<String> listArguments) {
+    public List<Requests> getRequestsUserOf (UUID id, List < String > listArguments){
 
         List<Requests> requestsList = List.of(new Requests(1L, "user_of",
                 listArguments, repository.userOf(id, Type.valueOf(listArguments.get(0)))));
@@ -36,7 +33,7 @@ public interface  RequestsSet {
 
     }
 
-    public List<Requests> getRequestsActiveUserOf(UUID id, List<String> list) {
+    public List<Requests> getRequestsActiveUserOf (UUID id, List < String > list){
 
 
         List<Requests> requestsList = List.of(new Requests(2L, "Active_User_Of",
@@ -46,7 +43,7 @@ public interface  RequestsSet {
     }
 
 
-    public List<Requests> getRequestsSum(UUID id, List<String> listArgument) {
+    public List<Requests> getRequestsSum (UUID id, List < String > listArgument){
 
         int newNum = Integer.parseInt(listArgument.get(3));
 
@@ -57,7 +54,7 @@ public interface  RequestsSet {
 
     }
 
-    public List<Requests> getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument) {
+    public List<Requests> getRequestsTransactionsSumCompareDepositWithdraw (UUID id, List < String > listArgument){
 
 
         List<Requests> requestsList = List.of(new Requests(4L, "TransactionsSumCompareDepositWithdraw", listArgument,
@@ -67,7 +64,8 @@ public interface  RequestsSet {
                 ))));
         return requestsList;
 
-    }*/
+    }
+
 }
 
 

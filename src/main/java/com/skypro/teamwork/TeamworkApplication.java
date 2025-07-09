@@ -1,5 +1,6 @@
 package com.skypro.teamwork;
 
+import com.skypro.teamwork.model.Type;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ public class TeamworkApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TeamworkApplication.class, args);
+        System.out.println(Type.DEBIT);
     }
 
 

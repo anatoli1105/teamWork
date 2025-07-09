@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 import java.util.UUID;
 
-
+@Component
 
 public class RecommendationDTO {
     private UUID id;

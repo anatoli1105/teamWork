@@ -15,12 +15,14 @@ public class RecommendationsRepository {
 
         private final JdbcTemplate jdbcTemplate ;
 
+
         public RecommendationsRepository(@Qualifier("recommendationsJdbcTemplate") JdbcTemplate jdbcTemplate) {
             this.jdbcTemplate = jdbcTemplate;
+
         }
 
 
-    public  boolean userOf(UUID user, Type type){
+    public  boolean userOf(UUID user, String type){
         var result = jdbcTemplate.queryForObject(
 
                 "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
@@ -42,6 +44,17 @@ public class RecommendationsRepository {
         return result != null ? result : 0;
 
     }
+    public  UUID seachProductId(UUID id) {
+        var result = jdbcTemplate.queryForObject(
+                "SELECT t.product_id  FROM products p JOIN  transactions t ON p.id = t.product_id " +
+                        "WHERE t.user_id = ?" +
+                        "LIMIT  1",
+                UUID.class,
+                id);
+        return result != null ? result : null;
+
+    }
+
 
 
 

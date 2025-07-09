@@ -1,8 +1,7 @@
 package com.skypro.teamwork.interfase;
 
-import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.model.Recommendations;
-import com.skypro.teamwork.model.Requests;
+import com.skypro.teamwork.model.Request;
 import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 
@@ -11,7 +10,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class RuleSetSaving implements RuleSet{
-    private final RecommendationsRepository repository;
+    @Override
+    public Optional<Recommendations> recommendationsSet(UUID id) {
+        return Optional.empty();
+    }
+   /* private final RecommendationsRepository repository;
     private final Recommendations recommendations;
     private final RequestsSet requestsSet;
     private final Type type;
@@ -25,7 +28,7 @@ public class RuleSetSaving implements RuleSet{
     }
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
-        Recommendations recommendations=new Recommendations(id,"Top saving","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
+        Recommendations recommendations=new Recommendations(id,"Top saving"," ","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
                 "\n" +
                 "Преимущества «Копилки»:\n" +
                 "\n" +
@@ -36,12 +39,12 @@ public class RuleSetSaving implements RuleSet{
                 "Безопасность и надежность. Ваши средства находятся под защитой банка, а доступ к ним возможен только через мобильное приложение или интернет-банкинг.\n" +
                 "\n" +
                 "Начните использовать «Копилку» уже сегодня и станьте ближе к своим финансовым целям!",
-                List.of((Requests) requestsSet.getRequestsUserOf(id,List.of(String.valueOf(Type.DEBIT))),
-                        (Requests) requestsSet.getRequestsSum(id,List.of(String.valueOf(Type.SAVING),
+                List.of((Request) requestsSet.getRequestsUserOf(id,List.of(String.valueOf(Type.DEBIT))),
+                        (Request) requestsSet.getRequestsSum(id,List.of(String.valueOf(Type.SAVING),
                                 String.valueOf(Type.DEBIT),">","50000")),
-                        (Requests) requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
+                        (Request) requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
                                 List.of(String.valueOf(Type.DEBIT),">"))));
 
-        return Optional.empty();
-    }
+        return Optional.of(recommendations);
+    }*/
 }

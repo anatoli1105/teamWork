@@ -1,27 +1,39 @@
 package com.skypro.teamwork.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+@Component
 @Entity
 public class Recommendations {
-    @Id
+   @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private UUID useId;
     private String productName;
     private UUID productId;
     private String productText;
-    private List<Requests> requestsList;
 
-    public Recommendations(UUID productId, String productName, String productText,List<Requests> requestsList) {
-        this.productId = productId;
+    @OneToMany(mappedBy = "recommendations")
+    private List<Request>requests;
+
+
+    public Recommendations(UUID useId, String productName,UUID productId, String productText,
+                          List<Request>requests) {
+        this.useId = useId;
         this.productName = productName;
+        this.productId=productId;
         this.productText = productText;
-        this.requestsList=requestsList;
 
+        this.requests=requests;
+
+    }
+
+    public Recommendations() {
     }
 
     public UUID getProductId() {
@@ -49,11 +61,21 @@ public class Recommendations {
         this.productText = productText;
     }
 
-    public List<Requests> getRequestsList() {
-        return requestsList;
+
+
+    public UUID getUseId() {
+        return useId;
     }
 
-    public void setRequestsList(List<Requests> requestsList) {
-        this.requestsList = requestsList;
+    public void setUseId(UUID useId) {
+        this.useId = useId;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 }

@@ -13,6 +13,7 @@ public interface RecommendationRuleSet {
     public Optional<RecommendationDTO> getRecommendations(UUID id);
 
 
+
 }
 
 

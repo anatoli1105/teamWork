@@ -29,7 +29,7 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet{
        String typeTransactionDeposit = "DEPOSIT";
        String typeTransactionWithdraw = "WITHDRAW";
 
-        if(       repository.userOf(id, Type.DEBIT)==true&&
+        if(       repository.userOf(id, Type.DEBIT.toString())==true&&
 
                 repository.sum(id,typeProductDebit,typeTransactionDeposit)>=50000||
                repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&

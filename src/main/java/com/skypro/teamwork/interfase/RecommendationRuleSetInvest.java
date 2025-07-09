@@ -16,17 +16,18 @@ import java.util.UUID;
 
 
 public class RecommendationRuleSetInvest implements RecommendationRuleSet  {
+
     private final RecommendationsRepository repository;
     private final RecommendationDTO recommendationDTO;
-    private final Type type;
 
 
 
 
-    public RecommendationRuleSetInvest(RecommendationsRepository repository, RecommendationDTO recommendationDTO,Type type) {
+
+    public RecommendationRuleSetInvest(RecommendationsRepository repository, RecommendationDTO recommendationDTO) {
         this.repository = repository;
         this.recommendationDTO = recommendationDTO;
-        this.type=type;
+
     }
 
     @Override
@@ -44,8 +45,8 @@ public Optional<RecommendationDTO> getRecommendations(UUID id) {
 
 
 
-    if (repository.userOf(id, Type.DEBIT) == true &&
-            repository.userOf(id, Type.INVEST) != true &&
+    if (repository.userOf(id, typeProductDebit) == true &&
+            repository.userOf(id, typeProductCredit) != true &&
             repository.sum(id, typeProductInvest, typeTransactionDeposit) > 1000) {
 
        RecommendationDTO recommendation = new RecommendationDTO(id, "invest", "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +

@@ -13,58 +13,62 @@ import java.util.UUID;
 public class RequestsSet {
 
    private final RecommendationsRepository repository;
-    private final MethodOperator method;
-    private final Request request;
+   private final MethodOperator method;
+    // private final Request request;
 
 
-    public RequestsSet(RecommendationsRepository repository, Request request, MethodOperator method) {
+    public RequestsSet(RecommendationsRepository repository,  MethodOperator method) {
         this.repository = repository;
-        this.request = request;
+      //  this.request = request;
         this.method = method;
     }
 
 
 
 
-    public List<Request> getRequestsUserOf(UUID id, List<String> listArguments) {
+    public Request getRequestsUserOf(UUID id, List<String> listArguments,Recommendations recommendations) {
 
-        List<Request> requestList = List.of(new Request( "user_of",
-                listArguments, repository.userOf(id,listArguments.get(0))));
-
-        return requestList;
-
-    }
-
-    public List<Request> getRequestsActiveUserOf(UUID id, List<String> list, Recommendations nameProduct) {
+       return new Request("user_of",
+               listArguments, repository.userOf(id,"CREDIT"),recommendations);
 
 
-        List<Request> requestList = List.of(new Request( "Active_User_Of",
-                List.of(list.get(0)), repository.userOf(id, list.get(0)), nameProduct));
-        return requestList;
 
     }
 
+    public Request getRequestsActiveUserOf(UUID id, List<String> list, Recommendations recommendations) {
 
-    public List<Request> getRequestsSum(UUID id, List<String> listArgument) {
+
+        return new Request( "Active_User_Of",
+                List.of(list.get(0)), repository.activeUserOf(id, list.get(0)), recommendations);
+
+
+    }
+
+
+    public Request getRequestsSum(UUID id, List<String> listArgument,Recommendations recommendations) {
 
         int newNum = Integer.parseInt(listArgument.get(3));
 
-        List<Request> requestList = List.of(new Request(
+        return new Request(
                 "Transaction_Sum_Compare", listArgument,
-                method.operator(repository.sum(id, listArgument.get(0), listArgument.get(1)), listArgument.get(2), newNum)));
-        return requestList;
+                method.operator(repository.sum(id, listArgument.get(0), listArgument.get(1)), listArgument.get(2), newNum),
+       recommendations );
+
 
     }
 
-    public List<Request> getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument
-                                                                          ) {
+    public Request getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument,
+                                                                         Recommendations recommendations ) {
 
 
-        List<Request> requestList = List.of(new Request( "TransactionsSumCompareDepositWithdraw", listArgument,
-                (method.operator((repository.sum(id, listArgument.get(0), "DEPOSIT")),
-                        listArgument.get(1), (repository.sum(id, listArgument.get(1)
-                                , " WITHDRAW"))))));
-        return requestList;
+        return new Request( "TransactionsSumCompareDepositWithdraw", listArgument,
+
+
+                (method.operator( (repository.sum(id, listArgument.get(0), "DEPOSIT")) ,
+                        listArgument.get(1),
+                        (repository.sum(id, listArgument.get(1), " WITHDRAW"))))
+                ,recommendations);
+
 
     }
 

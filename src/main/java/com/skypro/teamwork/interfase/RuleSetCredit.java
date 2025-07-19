@@ -6,35 +6,34 @@ import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-@Component
+import java.util.*;
+
+@Component(value = "CreditRequest")
 public class RuleSetCredit implements RuleSet {
-
-    private final RecommendationsRepository repository;
-    private  final Recommendations recommendations;
+   // @Override
+   // public Optional<Recommendations> recommendationsSet(UUID id) {
+       // return Optional.empty();}
+   private final RecommendationsRepository repository;
     private final RequestsSet requestsSet;
-   // private final Request request;
 
-    public RuleSetCredit(Recommendations recommendations,
-                         RecommendationsRepository repository,  RequestsSet requestsSet){//,Request request) {
-        this.recommendations=recommendations;
+    public RuleSetCredit(
+            RecommendationsRepository repository, RequestsSet requestsSet) {
         this.repository = repository;
-        //this.type = type;
         this.requestsSet = requestsSet;
-       // this.request=request;
+
     }
-
-
 
 
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
+        Recommendations recommendations = null;
+        if (requestsSet.getRequestsActiveUserOf(id, List.of("CREDIT"), new Recommendations()).getNegate() == true
+                && requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
+                List.of("DEBIT", ">"), new Recommendations()).getNegate() == true
+                && requestsSet.getRequestsSum(id, List.of("DEBIT",
+                "WITHDRAW", ">", "100000"), new Recommendations()).getNegate() == true) {
 
-
-
-            Recommendations recomendations = new Recommendations(id, "credit",repository.seachProductId(id), "Откройте мир выгодных кредитов с нами!\n" +
+            recommendations = new Recommendations(id, "credit", repository.seachProductId(id), "Откройте мир выгодных кредитов с нами!\n" +
                     "Ищете способ быстро и без лишних хлопот получить нужную сумму? Тогда наш выгодный кредит — именно то, " +
                     "что вам нужно! Мы предлагаем низкие процентные ставки, гибкие условия и индивидуальный подход к каждому клиенту." +
                     "Почему выбирают нас:\n" +
@@ -43,14 +42,14 @@ public class RuleSetCredit implements RuleSet {
                     "Широкий выбор кредитных продуктов. Мы предлагаем кредиты на различные цели: покупку недвижимости, " +
                     "автомобиля, образование, лечение и многое другое.\n" +
                     "Не упустите возможность воспользоваться выгодными условиями кредитования от нашей компании!",
-                   List.of((Request) requestsSet.getRequestsUserOf(id,List.of("CREDIT")),
-                            (Request) requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
-                                    List.of("DEBIT",">")),
-                            (Request) requestsSet.getRequestsSum(id,List.of("DEBIT",
-                                    "WITHDRAW",">","100000"))));
+                    List.of((requestsSet.getRequestsActiveUserOf(id, List.of("CREDIT"), new Recommendations())),
+                            (requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
+                                    List.of("DEBIT", ">"), new Recommendations())),
+                            (requestsSet.getRequestsSum(id, List.of("DEBIT",
+                                    "WITHDRAW", ">", "100000"), new Recommendations()))));
+        }
+        return Optional.ofNullable(recommendations);
 
-
-        return Optional.of(recommendations);
 
     }
 }

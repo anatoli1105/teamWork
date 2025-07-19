@@ -4,6 +4,7 @@ import com.skypro.teamwork.interfase.RecommendationRuleSet;
 import com.skypro.teamwork.interfase.RuleSet;
 import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.model.Recommendations;
+import com.skypro.teamwork.repository.RecommendationRepository;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import com.skypro.teamwork.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +15,27 @@ import java.util.*;
 @Service
 
 public class RecommendationService {
-//@Autowired
-//List<RuleSet> ruleSet;
+
 @Autowired
 private  List<RecommendationRuleSet> recommendationRuleSets;
-
-
-private final RecommendationDTO recommendations;
-
-   //public final RecommendationsRepository repository;
-   // private final RequestRepository requestRepository;
-
-    public RecommendationService( //RecommendationsRepository repository,
-                                 //RequestRepository requestRepository,
-                                  RecommendationDTO recommendations) {
-
-       // this.repository = repository;
-        //this.requestRepository = requestRepository;
-        this.recommendations=recommendations;
+@Autowired
+private List<RuleSet>ruleSets;
 
 
 
+
+private final RecommendationRepository repository;
+private final RequestRepository requestRepository;
+
+    public RecommendationService(RecommendationRepository repository,RequestRepository requestRepository) {
+        this.repository = repository;
+        this.requestRepository=requestRepository;
     }
+
+
+
+
+
 
     public List<RecommendationDTO> getRecommendation(UUID id) {
 
@@ -47,15 +47,32 @@ private final RecommendationDTO recommendations;
                 map(Optional::get).toList();
     }
 
-   /* public List<Recommendations> addRule(UUID id) {
+   public List< Recommendations> addRule(UUID id) {
 
-        return ruleSet.stream().
-                map(rule -> rule.recommendationsSet
-                        (id)).
-                filter(Optional::isPresent).
-                map(Optional::get).toList();
+      var add= ruleSets.stream().
+               map(rule -> rule.recommendationsSet
+                       (id)).
+               filter(Optional::isPresent).
+               map(Optional::get).toList();
+       for (Recommendations recommendations : add) {
+           var set=repository.save(recommendations);
 
-        }*/
+
+       }
+
+        return add;
+
+         
+         
+
+
+        }
+
+
+
+        public List<Recommendations> getAll(){
+        return repository.findAll();
+        }
 
 
 

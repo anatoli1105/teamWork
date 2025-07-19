@@ -4,46 +4,46 @@ import com.skypro.teamwork.model.Recommendations;
 import com.skypro.teamwork.model.Request;
 import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RuleSetInvest implements RuleSet{
-    @Override
-    public Optional<Recommendations> recommendationsSet(UUID id) {
-        return Optional.empty();
-    }
-  /*  private final RecommendationsRepository repository;
-    private final Recommendations recommendations;
-    private final RequestsSet requestsSet;
-    private final Type type;
+@Component(value = "investRequest")
+public class RuleSetInvest implements RuleSet {
 
-    public RuleSetInvest(Recommendations recommendations,
-                         RecommendationsRepository repository, Type type, RequestsSet requestsSet) {
-        this.recommendations = recommendations;
+
+    private final RecommendationsRepository repository;
+    private final RequestsSet requestsSet;
+
+
+    public RuleSetInvest(RecommendationsRepository repository, RequestsSet requestsSet) {
         this.repository = repository;
-        this.type = type;
         this.requestsSet = requestsSet;
     }
 
 
-
-
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
+        Recommendations recommendations1 = null;
+        if (requestsSet.getRequestsUserOf(id, List.of("DEBIT"), new Recommendations()).getNegate() == true &&
+                requestsSet.getRequestsActiveUserOf(id, List.of("INVEST"), new Recommendations()).getNegate() == true &&
+                requestsSet.getRequestsSum(id, List.of("SAVING",
+                        "DEPOSIT", ">", "1000"), new Recommendations()).getNegate() == true) {
 
-
-            Recommendations recommendation = new Recommendations(id, "invest","", "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
+            recommendations1 = new Recommendations(id, "invest", repository.seachProductId(id), "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
                     " от нашего банка! Воспользуйтесь налоговыми льготами и начните инвестировать с умом." +
                     " Пополните счет до конца года и получите выгоду в виде вычета на взнос в следующем налоговом периоде." +
                     " Не упустите возможность разнообразить свой портфель, снизить риски и следить за актуальными рыночными тенденциями. " +
                     "Откройте ИИС сегодня и станьте ближе к финансовой независимости!",
-                    List.of((Request) requestsSet.getRequestsUserOf(id,List.of(String.valueOf(Type.DEBIT))),
-                            (Request) requestsSet.getRequestsActiveUserOf(id,List.of(String.valueOf(Type.INVEST))),
-                            (Request) requestsSet.getRequestsSum(id,List.of(String.valueOf(Type.SAVING),
-                                    String.valueOf(Type.DEPOSIT),">","1000"))));
+                    List.of(requestsSet.getRequestsUserOf(id, List.of("DEBIT"), new Recommendations()),
+                            requestsSet.getRequestsActiveUserOf(id, List.of("INVEST"), new Recommendations()),
+                            requestsSet.getRequestsSum(id, List.of("SAVING",
+                                    "DEPOSIT", ">", "1000"), new Recommendations())));
+        }
 
-        return Optional.of(recommendations);
-    }*/
+        return Optional.ofNullable(recommendations1);
+    }
 }
+

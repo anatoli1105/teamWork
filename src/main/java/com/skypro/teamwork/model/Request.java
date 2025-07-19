@@ -5,12 +5,15 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Request {
      @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+
 
     private String query;
     private List<String> arguments;
@@ -30,7 +33,7 @@ public class Request {
         this.recommendations=recommendations;
     }
 
-    public Request(String userOf, List<String> listArguments, boolean b) {
+    public Request() {
     }
 
 

@@ -54,6 +54,18 @@ public class RecommendationsRepository {
         return result != null ? result : null;
 
     }
+    public  boolean activeUserOf(UUID user, String type){
+        var result = jdbcTemplate.queryForObject(
+
+                "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
+                        " ON p.id = t.product_id WHERE t.user_id = ?" +
+                        " AND p.`TYPE` != ? LIMIT 1)",
+                boolean.class,
+                user,type);
+
+        return result != null && result;
+
+    }
 
 
 

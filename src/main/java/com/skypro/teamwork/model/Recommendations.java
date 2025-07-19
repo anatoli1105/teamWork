@@ -1,12 +1,10 @@
 package com.skypro.teamwork.model;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-@Component
+
 @Entity
 public class Recommendations {
    @Id
@@ -22,8 +20,8 @@ public class Recommendations {
     private List<Request>requests;
 
 
-    public Recommendations(UUID useId, String productName,UUID productId, String productText,
-                          List<Request>requests) {
+    public Recommendations(UUID useId, String productName, UUID productId, String productText,
+                           List<Request>requests) {
         this.useId = useId;
         this.productName = productName;
         this.productId=productId;

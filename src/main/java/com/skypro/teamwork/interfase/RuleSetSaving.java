@@ -4,47 +4,51 @@ import com.skypro.teamwork.model.Recommendations;
 import com.skypro.teamwork.model.Request;
 import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RuleSetSaving implements RuleSet{
-    @Override
-    public Optional<Recommendations> recommendationsSet(UUID id) {
-        return Optional.empty();
-    }
-   /* private final RecommendationsRepository repository;
-    private final Recommendations recommendations;
-    private final RequestsSet requestsSet;
-    private final Type type;
+@Component
+public class RuleSetSaving implements RuleSet {
 
-    public RuleSetSaving(Recommendations recommendations,
-                         RecommendationsRepository repository, Type type, RequestsSet requestsSet) {
-        this.recommendations = recommendations;
+    private final RecommendationsRepository repository;
+    private final RequestsSet requestsSet;
+
+
+    public RuleSetSaving(RecommendationsRepository repository, RequestsSet requestsSet) {
+
         this.repository = repository;
-        this.type = type;
         this.requestsSet = requestsSet;
     }
+
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
-        Recommendations recommendations=new Recommendations(id,"Top saving"," ","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
-                "\n" +
-                "Преимущества «Копилки»:\n" +
-                "\n" +
-                "Накопление средств на конкретные цели. Установите лимит и срок накопления, и банк будет автоматически переводить определенную сумму на ваш счет.\n" +
-                "\n" +
-                "Прозрачность и контроль. Отслеживайте свои доходы и расходы, контролируйте процесс накопления и корректируйте стратегию при необходимости.\n" +
-                "\n" +
-                "Безопасность и надежность. Ваши средства находятся под защитой банка, а доступ к ним возможен только через мобильное приложение или интернет-банкинг.\n" +
-                "\n" +
-                "Начните использовать «Копилку» уже сегодня и станьте ближе к своим финансовым целям!",
-                List.of((Request) requestsSet.getRequestsUserOf(id,List.of(String.valueOf(Type.DEBIT))),
-                        (Request) requestsSet.getRequestsSum(id,List.of(String.valueOf(Type.SAVING),
-                                String.valueOf(Type.DEBIT),">","50000")),
-                        (Request) requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
-                                List.of(String.valueOf(Type.DEBIT),">"))));
+        Recommendations recommendations = null;
+        if (requestsSet.getRequestsUserOf(id, List.of("DEBIT"), new Recommendations()).getNegate() == true &&
+                requestsSet.getRequestsSum(id, List.of("DEBIT",
+                        "DEPOSIT", ">=", "50000"), new Recommendations()).getNegate() == true &&
+                requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
+                        List.of("DEBIT", ">"), new Recommendations()).getNegate() == true) {
+            recommendations = new Recommendations(id, "Top saving", repository.seachProductId(id), "Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
+                    "\n" +
+                    "Преимущества «Копилки»:\n" +
+                    "\n" +
+                    "Накопление средств на конкретные цели. Установите лимит и срок накопления, и банк будет автоматически переводить определенную сумму на ваш счет.\n" +
+                    "\n" +
+                    "Прозрачность и контроль. Отслеживайте свои доходы и расходы, контролируйте процесс накопления и корректируйте стратегию при необходимости.\n" +
+                    "\n" +
+                    "Безопасность и надежность. Ваши средства находятся под защитой банка, а доступ к ним возможен только через мобильное приложение или интернет-банкинг.\n" +
+                    "\n" +
+                    "Начните использовать «Копилку» уже сегодня и станьте ближе к своим финансовым целям!",
+                    List.of(requestsSet.getRequestsUserOf(id, List.of("DEBIT"), new Recommendations()),
+                            requestsSet.getRequestsSum(id, List.of("DEBIT",
+                                    "DEPOSIT", ">", "50000"), new Recommendations()),
+                            requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
+                                    List.of("DEBIT", ">"), new Recommendations())));
+        }
 
-        return Optional.of(recommendations);
-    }*/
+        return Optional.ofNullable(recommendations);
+    }
 }

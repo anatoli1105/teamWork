@@ -23,7 +23,7 @@ public class RecommendationsRepository {
 
 
     public  boolean userOf(UUID user, String type){
-        var result = jdbcTemplate.queryForObject(
+    var result = jdbcTemplate.queryForObject(
 
                 "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
                         " ON p.id = t.product_id WHERE t.user_id = ?" +

@@ -14,12 +14,11 @@ public class RequestsSet {
 
    private final RecommendationsRepository repository;
    private final MethodOperator method;
-    // private final Request request;
+
 
 
     public RequestsSet(RecommendationsRepository repository,  MethodOperator method) {
         this.repository = repository;
-      //  this.request = request;
         this.method = method;
     }
 

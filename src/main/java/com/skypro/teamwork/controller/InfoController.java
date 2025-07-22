@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class InfoController {
 
-     String port="";
+
 
     @GetMapping(path = "/port")
     public String port() {
-        return port.toString();
+        return null;
     }
 }

@@ -36,9 +36,8 @@ public class RecommendationController {
 
     }
     @DeleteMapping(path = "/delete")
-    public List<RecommendationDTO> delete(UUID id) {
-        return null;
-
+    public void delete(UUID id) {
+       service.deleteRule(id);
     }
     @GetMapping(path = "/get_all")
     public List<Recommendations> getAll(){

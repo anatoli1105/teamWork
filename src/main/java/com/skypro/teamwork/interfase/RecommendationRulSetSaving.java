@@ -10,32 +10,27 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component(value = "saving")
-public class RecommendationRulSetSaving implements RecommendationRuleSet{
+public class RecommendationRulSetSaving implements RecommendationRuleSet {
     private final RecommendationsRepository repository;
-    private final RecommendationDTO recommendationDTO;
 
-    public RecommendationRulSetSaving(RecommendationsRepository repository, RecommendationDTO recommendationDTO) {
+
+    public RecommendationRulSetSaving(RecommendationsRepository repository) {
         this.repository = repository;
-        this.recommendationDTO = recommendationDTO;
+
     }
 
     @Override
 
-    public Optional<RecommendationDTO> getRecommendations(UUID id){
-       String typeProductDebit = "DEBIT";
-       String typeProductInvest = "INVEST";
-       String typeProductCredit = "CREDIT";
-       String typeProductSaving = "SAVING";
-       String typeTransactionDeposit = "DEPOSIT";
-       String typeTransactionWithdraw = "WITHDRAW";
+    public Optional<RecommendationDTO> getRecommendations(UUID id) {
+        RecommendationDTO recommendationDTO = null;
 
-        if(       repository.userOf(id, Type.DEBIT.toString())==true&&
+        if (repository.userOf(id, Type.DEBIT.toString()) == true &&
 
-                repository.sum(id,typeProductDebit,typeTransactionDeposit)>=50000||
-               repository.sum(id,typeProductSaving,typeTransactionDeposit)>=50000&&
-                       repository.sum(id,typeProductDebit,typeTransactionDeposit)>
-                                repository.sum(id,typeProductDebit,typeTransactionWithdraw)){
-         RecommendationDTO recommendationDTO1=new RecommendationDTO(id,"Top saving","Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
+                repository.sum(id, Type.DEBIT.name(), Type.DEPOSIT.name()) >= 50000 ||
+                repository.sum(id, Type.SAVING.name(), Type.DEPOSIT.name()) >= 50000 &&
+                        repository.sum(id, Type.DEBIT.name(), Type.DEPOSIT.name()) >
+                                repository.sum(id, Type.DEBIT.name(), Type.WITHDRAW.name())) {
+            recommendationDTO = new RecommendationDTO(id, "Top saving", "Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
                     "\n" +
                     "Преимущества «Копилки»:\n" +
                     "\n" +
@@ -48,7 +43,7 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet{
                     "Начните использовать «Копилку» уже сегодня и станьте ближе к своим финансовым целям!");
         }
 
-        return Optional.of(recommendationDTO) ;
+        return Optional.of(recommendationDTO);
 
     }
 }

@@ -27,20 +27,20 @@ public class RuleSetInvest implements RuleSet {
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
         Recommendations recommendations1 = null;
-        if (requestsSet.getRequestsUserOf(id, List.of("DEBIT"), new Recommendations()).getNegate() == true &&
-                requestsSet.getRequestsActiveUserOf(id, List.of("INVEST"), new Recommendations()).getNegate() == true &&
-                requestsSet.getRequestsSum(id, List.of("SAVING",
-                        "DEPOSIT", ">", "1000"), new Recommendations()).getNegate() == true) {
+        if (requestsSet.getRequestsUserOf(id, List.of(Type.DEBIT.name()), new Recommendations()).getNegate() == true &&
+                requestsSet.getRequestsActiveUserOf(id, List.of(Type.INVEST.name()), new Recommendations()).getNegate() == true &&
+                requestsSet.getRequestsSum(id, List.of(Type.SAVING.name(),
+                        Type.DEPOSIT.name(), ">", "1000"), new Recommendations()).getNegate() == true) {
 
             recommendations1 = new Recommendations(id, "invest", repository.seachProductId(id), "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
                     " от нашего банка! Воспользуйтесь налоговыми льготами и начните инвестировать с умом." +
                     " Пополните счет до конца года и получите выгоду в виде вычета на взнос в следующем налоговом периоде." +
                     " Не упустите возможность разнообразить свой портфель, снизить риски и следить за актуальными рыночными тенденциями. " +
                     "Откройте ИИС сегодня и станьте ближе к финансовой независимости!",
-                    List.of(requestsSet.getRequestsUserOf(id, List.of("DEBIT"), new Recommendations()),
-                            requestsSet.getRequestsActiveUserOf(id, List.of("INVEST"), new Recommendations()),
-                            requestsSet.getRequestsSum(id, List.of("SAVING",
-                                    "DEPOSIT", ">", "1000"), new Recommendations())));
+                    List.of(requestsSet.getRequestsUserOf(id, List.of(Type.DEBIT.name()), new Recommendations()),
+                            requestsSet.getRequestsActiveUserOf(id, List.of(Type.INVEST.name()), new Recommendations()),
+                            requestsSet.getRequestsSum(id, List.of(Type.SAVING.name(),
+                                    Type.DEPOSIT.name(), ">", "1000"), new Recommendations())));
         }
 
         return Optional.ofNullable(recommendations1);

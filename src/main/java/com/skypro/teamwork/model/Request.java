@@ -21,7 +21,7 @@ public class Request {
 
     @ManyToOne
     @JoinColumn(name = "recommendations_product_name")
-    @JsonIgnore
+   @JsonIgnore
     private Recommendations recommendations;
 
 

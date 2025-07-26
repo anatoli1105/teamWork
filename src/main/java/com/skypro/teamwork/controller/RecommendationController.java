@@ -3,6 +3,7 @@ package com.skypro.teamwork.controller;
 import com.skypro.teamwork.interfase.RecommendationRuleSet;
 import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.model.Recommendations;
+import com.skypro.teamwork.model.Request;
 import com.skypro.teamwork.service.RecommendationService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,10 @@ public class RecommendationController {
 
         return service.getAll();
 
+    }
+    @GetMapping(path = "/requests")
+    public List<Request> requests(UUID id){
+return service.addRule2(id);
     }
 
 

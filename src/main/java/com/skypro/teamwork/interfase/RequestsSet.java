@@ -5,11 +5,11 @@ import com.skypro.teamwork.model.Request;
 import com.skypro.teamwork.model.Type;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-
-@Component
+@Service
 public class RequestsSet {
 
    private final RecommendationsRepository repository;

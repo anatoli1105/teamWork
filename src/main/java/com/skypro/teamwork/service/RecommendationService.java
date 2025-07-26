@@ -42,7 +42,7 @@ public class RecommendationService {
     }
 
     public List<Recommendations> addRule(UUID id) {
-
+Request requests=null;
         List<Recommendations> getRule = ruleSets.stream().
                 map(rule -> rule.recommendationsSet
                         (id)).
@@ -53,15 +53,38 @@ public class RecommendationService {
 
 
 
+        }
 
 
 
+        return getRule;
 
+
+    }
+    public List<Request> addRule2(UUID id) {
+       List<Request>requests=null;
+        List<Recommendations> getRule = ruleSets.stream().
+                map(rule -> rule.recommendationsSet
+                        (id)).
+                filter(Optional::isPresent).
+                map(Optional::get).toList();
+        for (Recommendations recommendations : getRule) {
+            requests=recommendations.getRequests();
+            for (Request request : requests) {
+                requestRepository.save(request);
+
+            }
 
         }
 
 
-        return getRule;
+
+
+
+
+
+
+        return requests ;
 
 
     }

@@ -78,10 +78,12 @@ public class RecommendationService {
 
     }
 
-    @Cacheable(cacheNames = "RecommendationsCache", unless = "#result == null")
-    public Recommendations getName(UUID id) {
+    @Cacheable//(cacheNames = "RecommendationsCache", unless = "#result == null")
+    (value = "Recommendations", cacheManager = "cacheManager", key = "#id")
+    public List< Recommendations> getName(UUID id) {
+      return   addRule(id);
 
-        return repository.findByRecomendations(id);
+       // return repository.findByRecomendations(id);
 
     }
 

@@ -51,7 +51,7 @@ public class RecommendationController {
     }
 
     @GetMapping(path = "cache")
-    public Recommendations getCache(UUID id) {
+    public List<Recommendations> getCache(UUID id) {
 
         return service.getName(id);
 

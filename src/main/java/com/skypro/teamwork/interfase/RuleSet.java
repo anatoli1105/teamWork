@@ -6,5 +6,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RuleSet {
+
     public Optional<Recommendations> recommendationsSet(UUID id);
 }

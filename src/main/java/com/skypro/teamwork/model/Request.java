@@ -15,7 +15,7 @@ public class Request {
 
 
 
-    private String query;
+    private  String query;
     private List<String> arguments;
     private Boolean negate;
 

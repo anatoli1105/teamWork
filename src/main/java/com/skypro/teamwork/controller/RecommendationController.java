@@ -31,26 +31,31 @@ public class RecommendationController {
         return service.getRecommendation(id);
 
     }
+
     @GetMapping(path = "/add")
     public List<Recommendations> add(UUID id) {
         return service.addRule(id);
 
     }
+
     @DeleteMapping(path = "/delete")
     public void delete(UUID id) {
-       service.deleteRule(id);
+        service.deleteRule(id);
     }
+
     @GetMapping(path = "/get_all")
-    public List<Recommendations> getAll(){
+    public List<Recommendations> getAll() {
 
         return service.getAll();
 
     }
-    @GetMapping(path = "/requests")
-    public List<Request> requests(UUID id){
-return service.addRule2(id);
-    }
 
+    @GetMapping(path = "cache")
+    public Recommendations getCache(UUID id) {
+
+        return service.getName(id);
+
+    }
 
 
 }

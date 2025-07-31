@@ -27,14 +27,15 @@ select * from requests
 
 select * from request
 
-alter table Recommendations add COLUMN reqquest Request
+alter table Recommendations add COLUMN reqquest pr
 select * from Recommendations
 alter table recommendation add FOREIGN KEY
 ('product_name')
 REFERENCES Request('Recommendations_product_name')
 select * from recommendations
-alter table Recommendations add COLUMN reqquest Request
-select * from Recommendations
+
+
+
 
 
 

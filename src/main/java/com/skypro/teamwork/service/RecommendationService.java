@@ -9,6 +9,7 @@ import com.skypro.teamwork.repository.RecommendationRepository;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import com.skypro.teamwork.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -42,7 +43,7 @@ public class RecommendationService {
     }
 
     public List<Recommendations> addRule(UUID id) {
-Request requests=null;
+        Request requests = null;
         List<Recommendations> getRule = ruleSets.stream().
                 map(rule -> rule.recommendationsSet
                         (id)).
@@ -52,39 +53,10 @@ Request requests=null;
             Recommendations addRecommendation = repository.save(recommendations);
 
 
-
         }
-
 
 
         return getRule;
-
-
-    }
-    public List<Request> addRule2(UUID id) {
-       List<Request>requests=null;
-        List<Recommendations> getRule = ruleSets.stream().
-                map(rule -> rule.recommendationsSet
-                        (id)).
-                filter(Optional::isPresent).
-                map(Optional::get).toList();
-        for (Recommendations recommendations : getRule) {
-            requests=recommendations.getRequests();
-            for (Request request : requests) {
-                requestRepository.save(request);
-
-            }
-
-        }
-
-
-
-
-
-
-
-
-        return requests ;
 
 
     }
@@ -93,14 +65,23 @@ Request requests=null;
     public List<Recommendations> getAll() {
         return repository.findAll();
     }
-    public void deleteRule(UUID id){
-if(repository.findByRecomendations(id).getUseId()!=null){
-    repository.delete(repository.findByRecomendations(id));
-}
+
+    public List<Request> all() {
+        return requestRepository.findAll();
+    }
+
+    public void deleteRule(UUID id) {
+        if (repository.findByRecomendations(id).getUseId() != null) {
+            repository.delete(repository.findByRecomendations(id));
+        }
 
 
+    }
 
+    @Cacheable(cacheNames = "RecommendationsCache", unless = "#result == null")
+    public Recommendations getName(UUID id) {
 
+        return repository.findByRecomendations(id);
 
     }
 

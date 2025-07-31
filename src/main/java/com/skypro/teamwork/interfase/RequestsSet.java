@@ -1,5 +1,6 @@
 package com.skypro.teamwork.interfase;
 
+import com.skypro.teamwork.model.QueryType;
 import com.skypro.teamwork.model.Recommendations;
 import com.skypro.teamwork.model.Request;
 import com.skypro.teamwork.model.Type;
@@ -27,7 +28,7 @@ public class RequestsSet {
 
     public Request getRequestsUserOf(UUID id, List<String> listArguments,Recommendations recommendations) {
 
-       return new Request("user_of",
+       return new Request(QueryType.user_of.name(),
                listArguments, repository.userOf(id,"CREDIT"),recommendations);
 
 
@@ -37,7 +38,7 @@ public class RequestsSet {
     public Request getRequestsActiveUserOf(UUID id, List<String> list, Recommendations recommendations) {
 
 
-        return new Request( "Active_User_Of",
+        return new Request( QueryType.Active_User_Of.name(),
                 List.of(list.get(0)), repository.activeUserOf(id, list.get(0)), recommendations);
 
 
@@ -49,7 +50,7 @@ public class RequestsSet {
         int newNum = Integer.parseInt(listArgument.get(3));
 
         return new Request(
-                "Transaction_Sum_Compare", listArgument,
+                QueryType.Transaction_Sum_Compare.name(), listArgument,
                 method.operator(repository.sum(id, listArgument.get(0), listArgument.get(1)), listArgument.get(2), newNum),
        recommendations );
 
@@ -60,7 +61,7 @@ public class RequestsSet {
                                                                          Recommendations recommendations ) {
 
 
-        return new Request( "TransactionsSumCompareDepositWithdraw", listArgument,
+        return new Request( QueryType.TransactionsSumCompareDepositWithdraw.name(), listArgument,
 
 
                 (method.operator( (repository.sum(id, listArgument.get(0), "DEPOSIT")) ,

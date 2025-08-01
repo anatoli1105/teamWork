@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component(value = "CreditRequest")
-public class RuleSetCredit implements RuleSet {
+public class RuleSetCredit extends RuleSet {
 
    private final RecommendationsRepository repository;
     private final RequestsSet requestsSet;

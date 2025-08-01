@@ -5,7 +5,9 @@ import com.skypro.teamwork.model.Recommendations;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RuleSet {
+public class RuleSet {
 
-    public Optional<Recommendations> recommendationsSet(UUID id);
+    public Optional<Recommendations> recommendationsSet(UUID id) {
+        return null;
+    }
 }

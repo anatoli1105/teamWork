@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class RuleSetSaving extends RuleSet {
+public class RuleSetSaving implements RuleSet {
 
     private final RecommendationsRepository repository;
     private final RequestsSet requestsSet;

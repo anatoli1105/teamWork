@@ -10,27 +10,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+
 @Service
 public class RequestsSet {
 
-   private final RecommendationsRepository repository;
-   private final MethodOperator method;
+    private final RecommendationsRepository repository;
+    private final MethodOperator method;
 
 
-
-    public RequestsSet(RecommendationsRepository repository,  MethodOperator method) {
+    public RequestsSet(RecommendationsRepository repository, MethodOperator method) {
         this.repository = repository;
         this.method = method;
     }
 
 
+    public Request getRequestsUserOf(UUID id, List<String> listArguments, Recommendations recommendations) {
 
-
-    public Request getRequestsUserOf(UUID id, List<String> listArguments,Recommendations recommendations) {
-
-       return new Request(QueryType.user_of.name(),
-               listArguments, repository.userOf(id,"CREDIT"),recommendations);
-
+        return new Request(QueryType.user_of.name(),
+                listArguments, repository.userOf(id, "CREDIT"), recommendations);
 
 
     }
@@ -38,36 +35,36 @@ public class RequestsSet {
     public Request getRequestsActiveUserOf(UUID id, List<String> list, Recommendations recommendations) {
 
 
-        return new Request( QueryType.Active_User_Of.name(),
+        return new Request(QueryType.Active_User_Of.name(),
                 List.of(list.get(0)), repository.activeUserOf(id, list.get(0)), recommendations);
 
 
     }
 
 
-    public Request getRequestsSum(UUID id, List<String> listArgument,Recommendations recommendations) {
+    public Request getRequestsSum(UUID id, List<String> listArgument, Recommendations recommendations) {
 
         int newNum = Integer.parseInt(listArgument.get(3));
 
         return new Request(
                 QueryType.Transaction_Sum_Compare.name(), listArgument,
                 method.operator(repository.sum(id, listArgument.get(0), listArgument.get(1)), listArgument.get(2), newNum),
-       recommendations );
+                recommendations);
 
 
     }
 
     public Request getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument,
-                                                                         Recommendations recommendations ) {
+                                                                    Recommendations recommendations) {
 
 
-        return new Request( QueryType.TransactionsSumCompareDepositWithdraw.name(), listArgument,
+        return new Request(QueryType.TransactionsSumCompareDepositWithdraw.name(), listArgument,
 
 
-                (method.operator( (repository.sum(id, listArgument.get(0), "DEPOSIT")) ,
+                (method.operator((repository.sum(id, listArgument.get(0), "DEPOSIT")),
                         listArgument.get(1),
                         (repository.sum(id, listArgument.get(1), " WITHDRAW"))))
-                ,recommendations);
+                , recommendations);
 
 
     }

@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component(value = "investRequest")
-public class RuleSetInvest extends RuleSet {
+public class RuleSetInvest implements RuleSet {
 
 
     private final RecommendationsRepository repository;

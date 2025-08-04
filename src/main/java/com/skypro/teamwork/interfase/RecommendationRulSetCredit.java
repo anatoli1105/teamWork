@@ -21,7 +21,6 @@ public class RecommendationRulSetCredit implements RecommendationRuleSet {
 
     @Override
 
-
     public Optional<RecommendationDTO> getRecommendations(UUID id) {
         RecommendationDTO recommendationDTO = null;
 

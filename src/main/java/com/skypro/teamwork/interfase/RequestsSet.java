@@ -23,7 +23,6 @@ public class RequestsSet {
         this.method = method;
     }
 
-
     public Request getRequestsUserOf(UUID id, List<String> listArguments, Recommendations recommendations) {
 
         return new Request(QueryType.user_of.name(),

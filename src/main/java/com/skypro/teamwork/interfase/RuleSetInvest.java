@@ -17,7 +17,6 @@ public class RuleSetInvest implements RuleSet {
     private final RecommendationsRepository repository;
     private final RequestsSet requestsSet;
 
-
     public RuleSetInvest(RecommendationsRepository repository, RequestsSet requestsSet) {
         this.repository = repository;
         this.requestsSet = requestsSet;

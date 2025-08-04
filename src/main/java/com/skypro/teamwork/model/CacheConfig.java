@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 @Configuration
 public class CacheConfig {
-
     @Bean
     public Caffeine<Object, Object> caffeineConfig() {
         return Caffeine.newBuilder()

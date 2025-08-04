@@ -13,9 +13,7 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
-
-    private  String query;
+     private  String query;
     private List<String> arguments;
     private Boolean negate;
 

@@ -18,7 +18,6 @@ public class RecommendationRuleSetInvest implements RecommendationRuleSet {
 
     private final RecommendationsRepository repository;
 
-
     public RecommendationRuleSetInvest(RecommendationsRepository repository) {
         this.repository = repository;
 

@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface RecommendationRepository extends JpaRepository<Recommendations,Long>{
     @Query(value = "select * from recommendations r where  use_id=? limit 1", nativeQuery = true)
     Recommendations findByRecomendations(UUID id);
+
 }

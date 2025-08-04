@@ -32,6 +32,7 @@ select * from Recommendations
 alter table recommendation add FOREIGN KEY
 ('product_name')
 REFERENCES Request('Recommendations_product_name')
+
 select * from recommendations
 
 

@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-
 public class RecommendationDTO {
     private UUID id;
     private String name;

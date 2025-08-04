@@ -5,4 +5,5 @@ public enum QueryType {
     Transaction_Sum_Compare,
     TransactionsSumCompareDepositWithdraw,
     user_of;
+
 }

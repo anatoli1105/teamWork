@@ -52,7 +52,6 @@ public class RecommendationService {
         for (Recommendations recommendations : getRule) {
             Recommendations addRecommendation = repository.save(recommendations);
 
-
         }
 
 

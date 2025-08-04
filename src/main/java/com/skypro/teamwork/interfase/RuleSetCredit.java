@@ -21,7 +21,6 @@ public class RuleSetCredit implements RuleSet {
 
     }
 
-
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
         Recommendations recommendations = null;

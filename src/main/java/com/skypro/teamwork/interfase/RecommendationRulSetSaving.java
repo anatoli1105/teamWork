@@ -20,7 +20,6 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet {
     }
 
     @Override
-
     public Optional<RecommendationDTO> getRecommendations(UUID id) {
         RecommendationDTO recommendationDTO = null;
 

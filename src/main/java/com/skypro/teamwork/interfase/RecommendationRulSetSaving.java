@@ -18,7 +18,6 @@ public class RecommendationRulSetSaving implements RecommendationRuleSet {
         this.repository = repository;
 
     }
-
     @Override
     public Optional<RecommendationDTO> getRecommendations(UUID id) {
         RecommendationDTO recommendationDTO = null;

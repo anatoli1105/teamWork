@@ -64,7 +64,6 @@ public class RecommendationService {
     public List<Recommendations> getAll() {
         return repository.findAll();
     }
-
     public List<Request> all() {
         return requestRepository.findAll();
     }

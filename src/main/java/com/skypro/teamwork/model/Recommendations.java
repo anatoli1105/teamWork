@@ -15,6 +15,7 @@ public class Recommendations {
     private String productName;
     private UUID productId;
     private String productText;
+
     @OneToMany(mappedBy = "recommendations")
     private List<Request>requests;
 

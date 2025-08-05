@@ -9,31 +9,30 @@ import java.util.UUID;
 
 @Entity
 public class Request {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-     private  String query;
+    private String query;
     private List<String> arguments;
     private Boolean negate;
 
     @ManyToOne
     @JoinColumn(name = "recommendations_product_name")
-   @JsonIgnore
+    @JsonIgnore
     private Recommendations recommendations;
 
 
-    public Request( String query, List<String> arguments, Boolean negate,Recommendations recommendations) {
+    public Request(String query, List<String> arguments, Boolean negate, Recommendations recommendations) {
 
         this.arguments = arguments;
         this.query = query;
         this.negate = negate;
-        this.recommendations=recommendations;
+        this.recommendations = recommendations;
     }
 
     public Request() {
     }
-
 
 
     public List<String> getArguments() {

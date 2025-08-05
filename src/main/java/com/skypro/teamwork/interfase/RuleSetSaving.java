@@ -16,7 +16,6 @@ public class RuleSetSaving implements RuleSet {
     private final RecommendationsRepository repository;
     private final RequestsSet requestsSet;
 
-
     public RuleSetSaving(RecommendationsRepository repository, RequestsSet requestsSet) {
 
         this.repository = repository;

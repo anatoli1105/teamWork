@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 
 public class TeamworkApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(TeamworkApplication.class, args);
 

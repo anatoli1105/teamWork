@@ -15,7 +15,6 @@ public class RecommendationDTO {
     private String name;
     private String text;
 
-
     public RecommendationDTO(UUID id, String name, String text) {
         this.id = id;
         this.name = name;

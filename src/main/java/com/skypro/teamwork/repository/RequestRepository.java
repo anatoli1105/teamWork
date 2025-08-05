@@ -1,5 +1,4 @@
 package com.skypro.teamwork.repository;
-
 import com.skypro.teamwork.model.Request;
 import org.springframework.data.jpa.repository.JpaRepository;
 

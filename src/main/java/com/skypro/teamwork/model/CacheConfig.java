@@ -19,7 +19,6 @@ public class CacheConfig {
                 .expireAfterWrite(300, TimeUnit.SECONDS)
                 .initialCapacity(10);
     }
-
     @Bean
     public CacheManager cacheManager(Caffeine caffeine) {
         CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();

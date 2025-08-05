@@ -38,7 +38,6 @@ public class RecommendationController {
 
     }
 
-
     @DeleteMapping(path = "/delete")
     public void delete(UUID id) {
         service.deleteRule(id);

@@ -22,7 +22,6 @@ public class RuleSetInvest implements RuleSet {
         this.requestsSet = requestsSet;
     }
 
-
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
         Recommendations recommendations1 = null;

@@ -13,38 +13,40 @@ import java.util.UUID;
 
 public class RecommendationsRepository {
 
-        private final JdbcTemplate jdbcTemplate ;
+    private final JdbcTemplate jdbcTemplate;
 
 
-        public RecommendationsRepository(@Qualifier("recommendationsJdbcTemplate") JdbcTemplate jdbcTemplate) {
-            this.jdbcTemplate = jdbcTemplate;
+    public RecommendationsRepository(@Qualifier("recommendationsJdbcTemplate") JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
 
-        }
+    }
 
 
-    public  boolean userOf(UUID user, String type){
-    var result = jdbcTemplate.queryForObject(
+    public boolean userOf(UUID user, String type) {
+        var result = jdbcTemplate.queryForObject(
 
                 "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
                         " ON p.id = t.product_id WHERE t.user_id = ?" +
                         " AND p.`TYPE` = ? LIMIT 1)",
                 boolean.class,
-                user,type);
+                user, type);
 
         return result != null && result;
 
     }
-    public  int sum(UUID id, String type, String string) {
+
+    public int sum(UUID id, String type, String string) {
         var result = jdbcTemplate.queryForObject(
                 "SELECT SUM(amount)  FROM products p JOIN  transactions t  " +
                         "ON p.id = t.product_id WHERE t.user_id = ? " +
                         "AND p.`TYPE` = ? AND t.`TYPE` = ?",
                 int.class,
-                id,type,string);
+                id, type, string);
         return result != null ? result : 0;
 
     }
-    public  UUID seachProductId(UUID id) {
+
+    public UUID seachProductId(UUID id) {
         var result = jdbcTemplate.queryForObject(
                 "SELECT t.product_id  FROM products p JOIN  transactions t ON p.id = t.product_id " +
                         "WHERE t.user_id = ?" +
@@ -54,14 +56,15 @@ public class RecommendationsRepository {
         return result != null ? result : null;
 
     }
-    public  boolean activeUserOf(UUID user, String type){
+
+    public boolean activeUserOf(UUID user, String type) {
         var result = jdbcTemplate.queryForObject(
 
                 "SELECT EXISTS(SELECT 1 FROM products p JOIN  transactions t " +
                         " ON p.id = t.product_id WHERE t.user_id = ?" +
                         " AND p.`TYPE` != ? LIMIT 1)",
                 boolean.class,
-                user,type);
+                user, type);
 
         return result != null && result;
 

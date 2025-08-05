@@ -1,17 +1,7 @@
 -- liquibase formatted sql
 
 -- changelog user:1
-create table Recommendations(
-id bigint,
-useId uuid,
-productName varchar,
-product_Id uuid,
-productText text
 
-
-)
-
-drop table recommendations
 create table Recommendations(
 id bigint,
 use_id uuid,
@@ -27,7 +17,7 @@ select * from requests
 
 select * from request
 
-alter table Recommendations add COLUMN reqquest pr
+
 select * from Recommendations
 alter table recommendation add FOREIGN KEY
 ('product_name')

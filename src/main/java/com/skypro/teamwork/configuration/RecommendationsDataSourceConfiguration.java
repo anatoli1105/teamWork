@@ -25,7 +25,6 @@ public class RecommendationsDataSourceConfiguration {
 
     }
 
-
     @Bean(name = "recommendationsJdbcTemplate")
     public JdbcTemplate recommendationsJdbcTemplate(
             @Qualifier("recommendationsDataSource") DataSource dataSource

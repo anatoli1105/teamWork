@@ -10,7 +10,6 @@ productText text
 
 
 )
-
 drop table recommendations
 create table Recommendations(
 id bigint,

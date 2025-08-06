@@ -1,12 +1,6 @@
 package com.skypro.teamwork.model;
 
-import jakarta.persistence.Entity;
-import jakarta.validation.Valid;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.UUID;
 
 

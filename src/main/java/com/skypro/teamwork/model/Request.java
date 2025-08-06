@@ -22,7 +22,6 @@ public class Request {
    @JsonIgnore
     private Recommendations recommendations;
 
-
     public Request( String query, List<String> arguments, Boolean negate,Recommendations recommendations) {
 
         this.arguments = arguments;

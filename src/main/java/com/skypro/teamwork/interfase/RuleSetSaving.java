@@ -22,6 +22,7 @@ public class RuleSetSaving implements RuleSet {
         this.repository = repository;
         this.requestsSet = requestsSet;
     }
+
     @Override
     public Optional<Recommendations> recommendationsSet(UUID id) {
         Recommendations recommendations = null;

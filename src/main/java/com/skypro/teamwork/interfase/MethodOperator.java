@@ -19,7 +19,6 @@ public class MethodOperator {
 
         } else if (typeCompare == "<=") {
             return number <= number2;
-
         }
         return false;
     }

@@ -23,7 +23,6 @@ public class RecommendationRuleSetInvest implements RecommendationRuleSet {
 
 
     }
-
     @Override
 
 

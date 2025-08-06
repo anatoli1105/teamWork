@@ -12,7 +12,6 @@ public class InfoController {
 
 
 
-
     @GetMapping(path = "/port")
     public String port() {
         return null;

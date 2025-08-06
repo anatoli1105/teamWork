@@ -18,7 +18,6 @@ public class Recommendations {
     @OneToMany(mappedBy = "recommendations")
     private List<Request>requests;
 
-
     public Recommendations(UUID useId, String productName, UUID productId, String productText,
                            List<Request>requests) {
         this.useId = useId;

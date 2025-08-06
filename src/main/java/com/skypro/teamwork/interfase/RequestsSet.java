@@ -30,7 +30,6 @@ public class RequestsSet {
 
 
     }
-
     public Request getRequestsActiveUserOf(UUID id, List<String> list, Recommendations recommendations) {
 
 

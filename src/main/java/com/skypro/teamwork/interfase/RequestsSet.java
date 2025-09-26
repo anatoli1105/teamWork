@@ -1,0 +1,75 @@
+package com.skypro.teamwork.interfase;
+
+import com.skypro.teamwork.model.QueryType;
+import com.skypro.teamwork.model.Recommendations;
+import com.skypro.teamwork.model.Request;
+import com.skypro.teamwork.model.Type;
+import com.skypro.teamwork.repository.RecommendationsRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class RequestsSet {
+
+    private final RecommendationsRepository repository;
+    private final MethodOperator method;
+
+
+    public RequestsSet(RecommendationsRepository repository, MethodOperator method) {
+        this.repository = repository;
+        this.method = method;
+    }
+
+    public Request getRequestsUserOf(UUID id, List<String> listArguments, Recommendations recommendations) {
+
+        return new Request(QueryType.user_of.name(),
+                listArguments, repository.userOf(id, "CREDIT"), recommendations);
+
+
+    }
+    public Request getRequestsActiveUserOf(UUID id, List<String> list, Recommendations recommendations) {
+
+
+        return new Request(QueryType.Active_User_Of.name(),
+                List.of(list.get(0)), repository.activeUserOf(id, list.get(0)), recommendations);
+
+
+    }
+
+
+    public Request getRequestsSum(UUID id, List<String> listArgument, Recommendations recommendations) {
+
+        int newNum = Integer.parseInt(listArgument.get(3));
+
+        return new Request(
+                QueryType.Transaction_Sum_Compare.name(), listArgument,
+                method.operator(repository.sum(id, listArgument.get(0), listArgument.get(1)), listArgument.get(2), newNum),
+                recommendations);
+
+
+    }
+
+    public Request getRequestsTransactionsSumCompareDepositWithdraw(UUID id, List<String> listArgument,
+                                                                    Recommendations recommendations) {
+
+
+        return new Request(QueryType.TransactionsSumCompareDepositWithdraw.name(), listArgument,
+
+
+                (method.operator((repository.sum(id, listArgument.get(0), "DEPOSIT")),
+                        listArgument.get(1),
+                        (repository.sum(id, listArgument.get(1), " WITHDRAW"))))
+                , recommendations);
+
+
+    }
+
+
+}
+
+
+
+

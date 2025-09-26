@@ -5,6 +5,7 @@ import com.skypro.teamwork.interfase.RuleSet;
 import com.skypro.teamwork.model.RecommendationDTO;
 import com.skypro.teamwork.model.Recommendations;
 import com.skypro.teamwork.model.Request;
+import com.skypro.teamwork.model.Stats;
 import com.skypro.teamwork.repository.RecommendationRepository;
 import com.skypro.teamwork.repository.RecommendationsRepository;
 import com.skypro.teamwork.repository.RequestRepository;
@@ -17,6 +18,7 @@ import java.util.*;
 @Service
 
 public class RecommendationService {
+    private final RecommendationsRepository recommendationsRepository;
 
     private final List<RecommendationRuleSet> recommendationRuleSets;
     private final RecommendationRepository repository;
@@ -24,11 +26,13 @@ public class RecommendationService {
     private final List<RuleSet> ruleSets;
 
     public RecommendationService(RecommendationRepository repository, RequestRepository requestRepository,
-                                 List<RuleSet> ruleSets, List<RecommendationRuleSet> recommendationRuleSets) {
+                                 List<RuleSet> ruleSets, List<RecommendationRuleSet> recommendationRuleSets,
+                                 RecommendationsRepository recommendationsRepository) {
         this.repository = repository;
         this.requestRepository = requestRepository;
         this.ruleSets = ruleSets;
         this.recommendationRuleSets = recommendationRuleSets;
+        this.recommendationsRepository = recommendationsRepository;
     }
 
 
@@ -77,11 +81,56 @@ public class RecommendationService {
     }
 
     @Cacheable//(cacheNames = "RecommendationsCache", unless = "#result == null")
-    (value = "Recommendations", cacheManager = "cacheManager", key = "#id")
-    public List< Recommendations> getName(UUID id) {
-      return   addRule(id);
+            (value = "Recommendations", cacheManager = "cacheManager", key = "#id")
+    public List<Recommendations> getName(UUID id) {
+        return addRule(id);
 
-       // return repository.findByRecomendations(id);
+
+
+    }
+
+    public UUID searchUserId(String firstName, String lastName) {
+        return recommendationsRepository.searchId(firstName, lastName);
+    }
+
+    public List<Recommendations> addRuleForName(String firstName, String lastName) {
+        Request requests = null;
+        List<Recommendations> getRule = ruleSets.stream().
+                map(rule -> rule.recommendationsSet
+                        (recommendationsRepository.searchId(firstName, lastName))).
+                filter(Optional::isPresent).
+                map(Optional::get).toList();
+        for (Recommendations recommendations : getRule) {
+            Recommendations addRecommendation = repository.save(recommendations);
+
+        }
+
+
+        return getRule;
+
+
+    }
+
+    public boolean searchUserName(String firstName, String lastName) {
+        return recommendationsRepository.searchName(firstName, lastName);
+    }
+
+    public String newNegate(Boolean negate) {
+        String temp = null;
+        if (negate == true) {
+            temp = "true";
+        } else {
+            temp = "false";
+        }
+        return temp;
+    }
+
+    public List<Stats> countRule() {
+        List<Stats> stats = List.of(new Stats(repository.findByProductId("invest"), repository.findBySum("invest")),
+                new Stats(repository.findByProductId("credit"), repository.findBySum("credit")),
+                new Stats(repository.findByProductId("Top saving"), repository.findBySum("Top saving")));
+        return stats;
+
 
     }
 

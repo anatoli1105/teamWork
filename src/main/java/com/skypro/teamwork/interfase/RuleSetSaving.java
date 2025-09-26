@@ -31,7 +31,7 @@ public class RuleSetSaving implements RuleSet {
                         Type.DEPOSIT.name(), ">=", "50000"), new Recommendations()).getNegate() == true &&
                 requestsSet.getRequestsTransactionsSumCompareDepositWithdraw(id,
                         List.of(Type.DEBIT.name(), ">"), new Recommendations()).getNegate() == true) {
-            recommendations = new Recommendations(id, "Top saving", repository.seachProductId(id), "Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
+            recommendations = new Recommendations(id, "Top saving", repository.searchProductId(id), "Откройте свою собственную «Копилку» с нашим банком! «Копилка» — это уникальный банковский инструмент, который поможет вам легко и удобно накапливать деньги на важные цели. Больше никаких забытых чеков и потерянных квитанций — всё под контролем!\n" +
                     "\n" +
                     "Преимущества «Копилки»:\n" +
                     "\n" +

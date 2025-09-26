@@ -30,7 +30,7 @@ public class RuleSetInvest implements RuleSet {
                 requestsSet.getRequestsSum(id, List.of(Type.SAVING.name(),
                         Type.DEPOSIT.name(), ">", "1000"), new Recommendations()).getNegate() == true) {
 
-            recommendations1 = new Recommendations(id, "invest", repository.seachProductId(id), "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
+            recommendations1 = new Recommendations(id, "invest", repository.searchProductId(id), "Откройте свой путь к успеху с индивидуальным инвестиционным счетом (ИИС)" +
                     " от нашего банка! Воспользуйтесь налоговыми льготами и начните инвестировать с умом." +
                     " Пополните счет до конца года и получите выгоду в виде вычета на взнос в следующем налоговом периоде." +
                     " Не упустите возможность разнообразить свой портфель, снизить риски и следить за актуальными рыночными тенденциями. " +

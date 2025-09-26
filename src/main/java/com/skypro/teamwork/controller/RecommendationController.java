@@ -56,6 +56,10 @@ public class RecommendationController {
         return service.getName(id);
 
     }
+    @GetMapping(path = "/seachId")
+    public List<Recommendations> getRule(String firstName,String lastName){
+        return service.addRuleForName(firstName,lastName);
+    }
 
 
 }

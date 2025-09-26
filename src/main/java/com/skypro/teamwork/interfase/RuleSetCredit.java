@@ -29,7 +29,7 @@ public class RuleSetCredit implements RuleSet {
                 && requestsSet.getRequestsSum(id, List.of(Type.DEBIT.name(),
                 Type.WITHDRAW.name(), ">", "100000"), new Recommendations()).getNegate() == true) {
 
-            recommendations = new Recommendations(id, "credit", repository.seachProductId(id), "Откройте мир выгодных кредитов с нами!\n" +
+            recommendations = new Recommendations(id, "credit", repository.searchProductId(id), "Откройте мир выгодных кредитов с нами!\n" +
                     "Ищете способ быстро и без лишних хлопот получить нужную сумму? Тогда наш выгодный кредит — именно то, " +
                     "что вам нужно! Мы предлагаем низкие процентные ставки, гибкие условия и индивидуальный подход к каждому клиенту." +
                     "Почему выбирают нас:\n" +

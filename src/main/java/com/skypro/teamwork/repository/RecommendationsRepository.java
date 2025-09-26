@@ -43,7 +43,7 @@ public class RecommendationsRepository {
         return result != null ? result : 0;
 
     }
-    public  UUID seachProductId(UUID id) {
+    public  UUID searchProductId(UUID id) {
         var result = jdbcTemplate.queryForObject(
                 "SELECT t.product_id  FROM products p JOIN  transactions t ON p.id = t.product_id " +
                         "WHERE t.user_id = ?" +
@@ -65,5 +65,27 @@ public class RecommendationsRepository {
         return result != null && result;
 
     }
+    public  UUID searchId(String firstName,String lastName) {
+        var result = jdbcTemplate.queryForObject(
+                "SELECT id  FROM USERS  " +
+                        "WHERE LAST_NAME= ?" +
+                        "AND FIRST_NAME=?",
+                UUID.class,
+                firstName, lastName);
+        return result != null ? result : null;
+    }
+    public  boolean searchName(String firstName,String lastName){
+        var result = jdbcTemplate.queryForObject(
+
+                "SELECT EXISTS(SELECT 1 FROM USERS" +
+                        " WHERE LAST_NAME= ?" +
+                        " AND FIRST_NAME=?)",
+                boolean.class,
+                firstName, lastName);
+
+        return result != null && result;
+
+    }
+
 }
 
